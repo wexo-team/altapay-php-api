@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<APIResponse version="20150526">
+    <Header>
+        <Date>2010-09-29T12:34:56+02:00</Date>
+        <Path>API/queryGiftCard</Path>
+        <ErrorCode>0</ErrorCode>
+        <ErrorMessage></ErrorMessage>
+    </Header>
+    <Body>
+        <Result>Success</Result>
+        <Accounts>
+            <Account>
+                <Currency>EUR</Currency>
+                <Balance>50.00</Balance>
+            </Account>
+            <Account>
+                <Currency>DKK</Currency>
+                <Balance>25.00</Balance>
+            </Account>
+        </Accounts>
+    </Body>
+</APIResponse>
