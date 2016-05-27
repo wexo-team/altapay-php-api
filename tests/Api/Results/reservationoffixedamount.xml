@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<APIResponse version="20100929">
+    <Header>
+        <Date>2010-09-29T12:34:56+02:00</Date>
+        <Path>API/reservationOfFixedAmount</Path>
+        <ErrorCode>0</ErrorCode>
+        <ErrorMessage></ErrorMessage>
+    </Header>
+    <Body>
+        <Result>Success</Result>
+        <Transactions>
+            <Transaction>
+                <TransactionId>3</TransactionId>
+                <PaymentId>ccc1479c-37f9-4962-8d2c-662d75117e9d</PaymentId>
+                <CardStatus>Valid</CardStatus>
+                <CreditCardToken>85c1d13de7b5dceb6b739829cc27e089631b0fda</CreditCardToken>
+                <CreditCardMaskedPan>411111******1111</CreditCardMaskedPan>
+                <ThreeDSecureResult>Not_Applicable</ThreeDSecureResult>
+                <LiableForChargeback>Merchant</LiableForChargeback>
+                <BlacklistToken>4f244dec4907eba0f6432e53b17a60ebcf51365e</BlacklistToken>
+                <ShopOrderId>myorder123</ShopOrderId>
+                <Shop>AltaPay Functional Test Shop</Shop>
+                <Terminal>AltaPay Test Terminal</Terminal>
+                <TransactionStatus>preauth</TransactionStatus>
+                <ReasonCode>NONE</ReasonCode>
+                <MerchantCurrency>978</MerchantCurrency>
+                <MerchantCurrencyAlpha>EUR</MerchantCurrencyAlpha>
+                <CardHolderCurrency>978</CardHolderCurrency>
+                <CardHolderCurrencyAlpha>EUR</CardHolderCurrencyAlpha>
+                <ReservedAmount>2499.95</ReservedAmount>
+                <CapturedAmount>0</CapturedAmount>
+                <RefundedAmount>0</RefundedAmount>
+                <RecurringDefaultAmount>0</RecurringDefaultAmount>
+                <CreatedDate>2010-09-28 12:34:56</CreatedDate>
+                <UpdatedDate>2010-09-28 12:34:56</UpdatedDate>
+                <PaymentNature>CreditCard</PaymentNature>
+                <PaymentNatureService name="TestAcquirer">
+                    <SupportsRefunds>true</SupportsRefunds>
+                    <SupportsRelease>true</SupportsRelease>
+                    <SupportsMultipleCaptures>true</SupportsMultipleCaptures>
+                    <SupportsMultipleRefunds>false</SupportsMultipleRefunds>
+                </PaymentNatureService>
+                <PaymentInfos>
+                    <PaymentInfo name="Payment_Type">payment</PaymentInfo>
+                </PaymentInfos>
+                <CustomerInfo/>
+                <ReconciliationIdentifiers/>
+            </Transaction>
+        </Transactions>
+    </Body>
+</APIResponse>
