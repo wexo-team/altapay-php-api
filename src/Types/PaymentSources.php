@@ -21,44 +21,45 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response\Embeds;
+namespace Altapay\Api\Types;
 
-use Altapay\Api\Response\AbstractResponse;
-
-class Address extends AbstractResponse
+/**
+ * Allowed payment sources
+ */
+class PaymentSources implements TypeInterface
 {
 
-    public $Firstname;
-
-    public $Lastname;
-
-    public $Address;
-
-    public $City;
-
-    public $PostalCode;
-
-    public $Region;
-
-    public $Country;
+    /**
+     * Allowed payment sources
+     *
+     * @var array
+     */
+    private static $sources = [
+        'eCommerce',
+        'mobi',
+        'moto',
+        'mail_order',
+        'telephone_order',
+    ];
 
     /**
-     * @param string $FirstName
-     * @return Address
+     * Get allowed values
+     *
+     * @return array
      */
-    public function setFirstName($FirstName)
+    public static function getAllowed()
     {
-        $this->Firstname = $FirstName;
-        return $this;
+        return self::$sources;
     }
 
     /**
-     * @param string $LastName
-     * @return Address
+     * Is the requested value allowed
+     *
+     * @param string $value
+     * @return bool
      */
-    public function setLastName($LastName)
+    public static function isAllowed($value)
     {
-        $this->Lastname = $LastName;
-        return $this;
+        return in_array($value, self::$sources);
     }
 }

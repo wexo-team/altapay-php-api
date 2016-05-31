@@ -21,44 +21,44 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response\Embeds;
+namespace Altapay\Api\Types;
 
-use Altapay\Api\Response\AbstractResponse;
-
-class Address extends AbstractResponse
+/**
+ * Allowed fraud services
+ */
+class FraudServices implements TypeInterface
 {
 
-    public $Firstname;
-
-    public $Lastname;
-
-    public $Address;
-
-    public $City;
-
-    public $PostalCode;
-
-    public $Region;
-
-    public $Country;
+    /**
+     * Allowed fraud services
+     *
+     * @var array
+     */
+    private static $services = [
+        'none',
+        'maxmind',
+        'red',
+        'test',
+    ];
 
     /**
-     * @param string $FirstName
-     * @return Address
+     * Get allowed values
+     *
+     * @return array
      */
-    public function setFirstName($FirstName)
+    public static function getAllowed()
     {
-        $this->Firstname = $FirstName;
-        return $this;
+        return self::$services;
     }
 
     /**
-     * @param string $LastName
-     * @return Address
+     * Is the requested value allowed
+     *
+     * @param string $value
+     * @return bool
      */
-    public function setLastName($LastName)
+    public static function isAllowed($value)
     {
-        $this->Lastname = $LastName;
-        return $this;
+        return in_array($value, self::$services);
     }
 }

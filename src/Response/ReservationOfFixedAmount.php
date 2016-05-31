@@ -21,44 +21,34 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response\Embeds;
+namespace Altapay\Api\Response;
 
-use Altapay\Api\Response\AbstractResponse;
-
-class Address extends AbstractResponse
+class ReservationOfFixedAmount extends AbstractResponse
 {
 
-    public $Firstname;
-
-    public $Lastname;
-
-    public $Address;
-
-    public $City;
-
-    public $PostalCode;
-
-    public $Region;
-
-    public $Country;
+    /**
+     * Childs
+     *
+     * @var array
+     */
+    protected $childs = [
+        'Transactions' => [
+            'class' => Transaction::class,
+            'array' => 'Transaction'
+        ],
+    ];
 
     /**
-     * @param string $FirstName
-     * @return Address
+     * Result
+     *
+     * @var string
      */
-    public function setFirstName($FirstName)
-    {
-        $this->Firstname = $FirstName;
-        return $this;
-    }
+    public $Result;
 
     /**
-     * @param string $LastName
-     * @return Address
+     * Transactions
+     *
+     * @var Transaction[]
      */
-    public function setLastName($LastName)
-    {
-        $this->Lastname = $LastName;
-        return $this;
-    }
+    public $Transactions;
 }

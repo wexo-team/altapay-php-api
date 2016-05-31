@@ -48,9 +48,9 @@ class Giftcard
 
     /**
      * Giftcard constructor.
-     * @param string $account The card number of the gift card.
-     * @param string $provider The gift card provider that this gift card is for. Currently the supported values are: test, PPS
-     * @param string $token A previously returned gift card token can be used in place of the account identifier and provider.
+     * @param string $account
+     * @param string $provider
+     * @param string $token
      */
     public function __construct($account, $provider, $token)
     {

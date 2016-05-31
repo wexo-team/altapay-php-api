@@ -26,6 +26,7 @@ namespace Altapay\ApiTest\Api;
 use Altapay\Api\Credit;
 use Altapay\Api\Request\Card;
 use Altapay\Api\Exceptions\CreditCardTokenAndCardUsedException;
+use Altapay\Api\Types\PaymentSources;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -110,7 +111,7 @@ class CreditTest extends AbstractApiTest
 
     public function paymentSourceDataProvider()
     {
-        return [Credit::ALLOWEDPAYMENTSOURCES];
+        return [PaymentSources::getAllowed()];
     }
 
     /**

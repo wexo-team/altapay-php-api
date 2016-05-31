@@ -40,7 +40,11 @@ class ResponseSerializer
      * @param \SimpleXMLElement $header
      * @return AbstractResponse|array
      */
-    public static function serialize($objectName, \SimpleXMLElement $data, $childKey = false, \SimpleXMLElement $header = null)
+    public static function serialize(
+        $objectName,
+        \SimpleXMLElement $data,
+        $childKey = false,
+        \SimpleXMLElement $header = null)
     {
         if ($childKey !== false) {
             $documents = [];

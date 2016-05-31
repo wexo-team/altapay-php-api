@@ -25,6 +25,7 @@ namespace Altapay\Api;
 
 use Altapay\Api\Request\Card;
 use Altapay\Api\Exceptions\CreditCardTokenAndCardUsedException;
+use Altapay\Api\Types\PaymentSources;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\OptionsResolver\Options;
@@ -35,8 +36,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Credit extends AbstractApi
 {
-
-    const ALLOWEDPAYMENTSOURCES = ['eCommerce', 'mobi', 'moto', 'mail_order', 'telephone_order'];
 
     /**
      * Set the terminal
@@ -158,7 +157,7 @@ class Credit extends AbstractApi
         ]);
 
         $resolver->setAllowedTypes('transaction_info', 'array');
-        $resolver->setAllowedValues('payment_source', self::ALLOWEDPAYMENTSOURCES);
+        $resolver->setAllowedValues('payment_source', PaymentSources::getAllowed());
         $resolver->setDefault('payment_source', 'moto');
 
         $resolver->setNormalizer('credit_card_token', function (Options $options, $value) {

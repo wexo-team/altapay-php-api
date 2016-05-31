@@ -85,7 +85,7 @@
     <!-- Unit tests (phpunit)                          -->
     <!-- ============================================  -->
     <target name="phpunit">
-        <exec command="${bindir}/phpunit -c ${rootdir} --coverage-text --coverage-html=${builddir}/coverage" logoutput="false" checkreturn="true" />
+        <exec command="${bindir}/phpunit -c ${rootdir} --coverage-text --coverage-html=${builddir}/coverage" logoutput="true" checkreturn="true" />
     </target>
 
     <!-- ============================================  -->

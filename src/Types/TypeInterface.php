@@ -21,44 +21,23 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response\Embeds;
+namespace Altapay\Api\Types;
 
-use Altapay\Api\Response\AbstractResponse;
-
-class Address extends AbstractResponse
+interface TypeInterface
 {
 
-    public $Firstname;
-
-    public $Lastname;
-
-    public $Address;
-
-    public $City;
-
-    public $PostalCode;
-
-    public $Region;
-
-    public $Country;
+    /**
+     * Get allowed values
+     *
+     * @return array
+     */
+    public static function getAllowed();
 
     /**
-     * @param string $FirstName
-     * @return Address
+     * Is the requested value allowed
+     *
+     * @param string $value
+     * @return bool
      */
-    public function setFirstName($FirstName)
-    {
-        $this->Firstname = $FirstName;
-        return $this;
-    }
-
-    /**
-     * @param string $LastName
-     * @return Address
-     */
-    public function setLastName($LastName)
-    {
-        $this->Lastname = $LastName;
-        return $this;
-    }
+    public static function isAllowed($value);
 }
