@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Traits;
+namespace Altapay\Traits;
 
-use Altapay\Api\Request\OrderLine;
+use Altapay\Request\OrderLine;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -63,7 +63,6 @@ trait OrderlinesTrait
 
     protected function setOrderLinesResolver(OptionsResolver $resolver)
     {
-        $resolver->setDefined('orderLines');
         $resolver->addAllowedTypes('orderLines', 'array');
         $resolver->setNormalizer('orderLines', function (Options $options, $value) {
             $output = [];

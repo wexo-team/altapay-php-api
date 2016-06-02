@@ -23,10 +23,10 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\ReserveSubscription;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\Exceptions\ClientException;
-use Altapay\Api\ReserveSubscriptionCharge;
+use Altapay\Response\Embeds\Transaction;
+use Altapay\Response\ReserveSubscriptionResponse;
+use Altapay\Exceptions\ClientException;
+use Altapay\Api\Subscription\ReserveSubscriptionCharge;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -42,9 +42,8 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/reservesubscription.xml'))
         ]));
 
-        return (new ReserveSubscriptionCharge())
+        return (new ReserveSubscriptionCharge($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -52,7 +51,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
     {
         $api = $this->getReserveSubscriptionCharge();
         $api->setTransactionId(123);
-        $this->assertInstanceOf(ReserveSubscription::class, $api->call());
+        $this->assertInstanceOf(ReserveSubscriptionResponse::class, $api->call());
     }
 
     /**
@@ -62,7 +61,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
     {
         $api = $this->getReserveSubscriptionCharge();
         $api->setTransactionId(123);
-        /** @var ReserveSubscription $response */
+        /** @var ReserveSubscriptionResponse $response */
         $response = $api->call();
         $this->assertEquals('Success', $response->Result);
         $this->assertCount(2, $response->Transactions);
@@ -110,9 +109,8 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
             new Response(400, ['text-content' => 'application/xml'])
         ]));
 
-        $api = (new ReserveSubscriptionCharge())
+        $api = (new ReserveSubscriptionCharge($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->setTransactionId(123)
         ;
         $api->call();

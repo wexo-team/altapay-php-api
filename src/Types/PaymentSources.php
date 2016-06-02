@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Types;
+namespace Altapay\Types;
 
 /**
  * Allowed payment sources

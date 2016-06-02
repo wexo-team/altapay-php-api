@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Traits;
+namespace Altapay\Traits;
 
 use GuzzleHttp\Psr7\Response;
 

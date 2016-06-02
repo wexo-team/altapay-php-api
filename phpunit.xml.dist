@@ -7,7 +7,7 @@
          bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Lsv / XXXXX">
+        <testsuite name="Altapay \ PHP API">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

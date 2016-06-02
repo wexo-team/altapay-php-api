@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Request;
+namespace Altapay\Request;
 
 class Giftcard
 {

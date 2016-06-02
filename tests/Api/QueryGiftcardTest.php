@@ -23,9 +23,9 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\QueryGiftcard;
-use Altapay\Api\Request\Giftcard;
-use Altapay\Api\Response\Giftcard as GiftcardResponse;
+use Altapay\Api\Others\QueryGiftcard;
+use Altapay\Request\Giftcard;
+use Altapay\Response\GiftcardResponse as GiftcardResponse;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -41,9 +41,8 @@ class QueryGiftcardTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/querygiftcard.xml'))
         ]));
 
-        return (new QueryGiftcard())
+        return (new QueryGiftcard($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 

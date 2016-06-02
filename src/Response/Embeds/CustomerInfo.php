@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response\Embeds;
+namespace Altapay\Response\Embeds;
 
-use Altapay\Api\Response\AbstractResponse;
+use Altapay\Response\AbstractResponse;
 
 class CustomerInfo extends AbstractResponse
 {

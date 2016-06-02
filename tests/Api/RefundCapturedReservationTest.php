@@ -23,12 +23,11 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Request\OrderLine;
-use Altapay\Api\Response\Refund;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\Exceptions\AuthenticationRequiredException;
-use Altapay\Api\Exceptions\ClientException;
-use Altapay\Api\RefundCapturedReservation;
+use Altapay\Api\Payments\RefundCapturedReservation;
+use Altapay\Request\OrderLine;
+use Altapay\Response\Embeds\Transaction;
+use Altapay\Response\RefundResponse;
+use Altapay\Exceptions\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -44,17 +43,16 @@ class RefundCapturedReservationTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/refundcapture.xml'))
         ]));
 
-        return (new RefundCapturedReservation())
+        return (new RefundCapturedReservation($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
-            ;
+        ;
     }
 
     public function test_refund_reservation()
     {
         $api = $this->getRefundCaptureReservation();
         $api->setTransactionId(123);
-        $this->assertInstanceOf(Refund::class, $api->call());
+        $this->assertInstanceOf(RefundResponse::class, $api->call());
     }
 
     /**
@@ -64,10 +62,10 @@ class RefundCapturedReservationTest extends AbstractApiTest
     {
         $api = $this->getRefundCaptureReservation();
         $api->setTransactionId(123);
-        /** @var Refund $response */
+        /** @var RefundResponse $response */
         $response = $api->call();
 
-        $this->assertEquals(0.12, $response->RefundAmount);
+        $this->assertEquals(0.12, $response->getRefundAmount());
         $this->assertEquals('978', $response->RefundCurrency);
         $this->assertEquals('Success', $response->Result);
         $this->assertEquals('Success', $response->RefundResult);
@@ -81,7 +79,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
     {
         $api = $this->getRefundCaptureReservation();
         $api->setTransactionId(123);
-        /** @var Refund $response */
+        /** @var RefundResponse $response */
         $response = $api->call();
         /** @var Transaction $transaction */
         $transaction = $response->Transactions[0];
@@ -212,26 +210,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
             new Response(400, ['text-content' => 'application/xml'])
         ]));
 
-        $api = (new RefundCapturedReservation())
-            ->setClient($client)
-            ->setAuthentication($this->getAuth())
-            ->setTransactionId(123)
-        ;
-        $api->call();
-    }
-
-    public function test_capture_refund_transaction_require_auth()
-    {
-        $this->setExpectedException(AuthenticationRequiredException::class);
-
-        $transaction = new Transaction();
-        $transaction->TransactionId = 456;
-
-        $client = $this->getClient($mock = new MockHandler([
-            new Response(200, ['text-content' => 'application/xml'])
-        ]));
-
-        $api = (new RefundCapturedReservation())
+        $api = (new RefundCapturedReservation($this->getAuth()))
             ->setClient($client)
             ->setTransactionId(123)
         ;

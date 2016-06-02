@@ -1,7 +1,7 @@
 <?php
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\TestAuthentication;
+use Altapay\Api\Test\TestAuthentication;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -14,8 +14,7 @@ class TestAuthenticationTest extends AbstractApiTest
             new Response(200)
         ]));
 
-        $api = (new TestAuthentication())
-            ->setAuthentication($this->getAuth())
+        $api = (new TestAuthentication($this->getAuth()))
             ->setClient($client)
         ;
 
@@ -29,8 +28,7 @@ class TestAuthenticationTest extends AbstractApiTest
             new Response(400)
         ]));
 
-        $api = (new TestAuthentication())
-            ->setAuthentication($this->getAuth())
+        $api = (new TestAuthentication($this->getAuth()))
             ->setClient($client)
         ;
 

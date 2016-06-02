@@ -23,10 +23,10 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\ChargeSubscription as ChargeSubscriptionDocument;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\Exceptions\ClientException;
-use Altapay\Api\ChargeSubscription;
+use Altapay\Response\ChargeSubscriptionResponse as ChargeSubscriptionDocument;
+use Altapay\Exceptions\ClientException;
+use Altapay\Response\Embeds\Transaction;
+use Altapay\Api\Subscription\ChargeSubscription;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -42,9 +42,8 @@ class ChargeSubscriptionTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/setupsubscription.xml'))
         ]));
 
-        return (new ChargeSubscription())
+        return (new ChargeSubscription($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -112,9 +111,8 @@ class ChargeSubscriptionTest extends AbstractApiTest
             new Response(400, ['text-content' => 'application/xml'])
         ]));
 
-        $api = (new ChargeSubscription())
+        $api = (new ChargeSubscription($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->setTransactionId(123)
         ;
         $api->call();

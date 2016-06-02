@@ -23,8 +23,8 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\CalculateSurcharge;
-use Altapay\Api\Response\Surcharge;
+use Altapay\Api\Others\CalculateSurcharge;
+use Altapay\Response\SurchargeResponse;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -40,18 +40,15 @@ class CalculateSurchargeTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/calculatesurcharge.xml'))
         ]));
 
-        return (new CalculateSurcharge())
+        return (new CalculateSurcharge($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
     public function test_options_fields_not_allowed_when_payment_id_is_set()
     {
-        $this->setExpectedException(
-            \InvalidArgumentException::class,
-            'The fields "currency, terminal, credit_card_token" is not allowed when "payment_id" is set'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The fields "currency, terminal, credit_card_token" is not allowed when "payment_id" is set');
 
         $api = $this->getapi();
         $api->setAmount(200.50);
@@ -82,7 +79,7 @@ class CalculateSurchargeTest extends AbstractApiTest
         $api->setAmount(200.50);
         $api->setPaymentId('123');
         $response = $api->call();
-        $this->assertInstanceOf(Surcharge::class, $response);
+        $this->assertInstanceOf(SurchargeResponse::class, $response);
     }
 
     public function test_options_fields_and_amount_is_ok()
@@ -93,7 +90,7 @@ class CalculateSurchargeTest extends AbstractApiTest
         $api->setCreditCardToken('1234');
         $api->setTerminal('my terminal');
         $response = $api->call();
-        $this->assertInstanceOf(Surcharge::class, $response);
+        $this->assertInstanceOf(SurchargeResponse::class, $response);
     }
 
     public function test_payment_id_route()
@@ -114,7 +111,7 @@ class CalculateSurchargeTest extends AbstractApiTest
     {
         $api = $this->getapi();
         $api->setAmount(200);
-        $api->setCurrency('currency');
+        $api->setCurrency('DKK');
         $api->setCreditCardToken('1234');
         $api->setTerminal('my terminal');
         $api->call();
@@ -123,7 +120,7 @@ class CalculateSurchargeTest extends AbstractApiTest
         $this->assertEquals($this->getExceptedUri('calculateSurcharge/'), $request->getUri()->getPath());
         parse_str($request->getUri()->getQuery(), $parts);
         $this->assertEquals('200', $parts['amount']);
-        $this->assertEquals('currency', $parts['currency']);
+        $this->assertEquals('DKK', $parts['currency']);
         $this->assertEquals('1234', $parts['credit_card_token']);
         $this->assertEquals('my terminal', $parts['terminal']);
     }
@@ -132,10 +129,10 @@ class CalculateSurchargeTest extends AbstractApiTest
     {
         $api = $this->getapi();
         $api->setAmount(200);
-        $api->setCurrency('currency');
+        $api->setCurrency('dkk');
         $api->setCreditCardToken('1234');
         $api->setTerminal('my terminal');
-        /** @var Surcharge $response */
+        /** @var SurchargeResponse $response */
         $response = $api->call();
 
         $this->assertEquals('Success', $response->Result);

@@ -23,9 +23,9 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\Embeds\Terminal;
-use Altapay\Api\Response\Terminals as TerminalsDocument;
-use Altapay\Api\Terminals;
+use Altapay\Api\Others\Terminals;
+use Altapay\Response\Embeds\Terminal;
+use Altapay\Response\TerminalsResponse as TerminalsDocument;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -41,9 +41,8 @@ class TerminalsTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/terminals.xml'))
         ]));
 
-        return (new Terminals())
+        return (new Terminals($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 

@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Event;
+namespace Altapay\Event;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -30,7 +30,7 @@ use Symfony\Component\EventDispatcher\Event;
 class BeforeHandlingResponseEvent extends Event
 {
 
-    const NAME = 'altapayapi.after.client.send';
+    const NAME = 'altapayapi.before.handling.response';
 
     /**
      * @var Request

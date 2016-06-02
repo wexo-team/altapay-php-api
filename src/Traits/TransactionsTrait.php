@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Traits;
+namespace Altapay\Traits;
 
-use Altapay\Api\Response\Transaction;
+use Altapay\Response\Embeds\Transaction;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -64,7 +64,6 @@ trait TransactionsTrait
      */
     protected function setTransactionResolver(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['transaction_id']);
         $resolver->addAllowedTypes('transaction_id', ['string', 'int', Transaction::class]);
         $resolver->setNormalizer('transaction_id', function (Options $options, $value) {
             if ($value instanceof Transaction) {

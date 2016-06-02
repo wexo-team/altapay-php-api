@@ -23,9 +23,9 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\ReleaseReservation as ReleaseReservationDocument;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\ReleaseReservation;
+use Altapay\Api\Payments\ReleaseReservation;
+use Altapay\Response\Embeds\Transaction;
+use Altapay\Response\ReleaseReservationResponse as ReleaseReservationDocument;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -42,9 +42,8 @@ class ReleaseReservationTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/release.xml'))
         ]));
 
-        return (new ReleaseReservation())
+        return (new ReleaseReservation($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -108,9 +107,8 @@ class ReleaseReservationTest extends AbstractApiTest
             new Response(400, ['text-content' => 'application/xml'])
         ]));
 
-        $api = (new ReleaseReservation())
+        $api = (new ReleaseReservation($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->setTransactionId(123)
         ;
         $api->call();

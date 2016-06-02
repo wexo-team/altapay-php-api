@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api;
+namespace Altapay;
 
 /**
  * Authenticator

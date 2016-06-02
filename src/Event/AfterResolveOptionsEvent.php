@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Event;
+namespace Altapay\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 

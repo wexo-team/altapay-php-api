@@ -1,11 +1,10 @@
 <?php
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\CaptureReservation;
-use Altapay\Api\Response\Capture;
-use Altapay\Api\Request\OrderLine;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\Exceptions\AuthenticationRequiredException;
+use Altapay\Api\Payments\CaptureReservation;
+use Altapay\Response\CaptureReservationResponse;
+use Altapay\Request\OrderLine;
+use Altapay\Response\Embeds\Transaction;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -22,9 +21,8 @@ class CaptureReservationTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/capture.xml'))
         ]));
 
-        return (new CaptureReservation())
+        return (new CaptureReservation($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -32,7 +30,7 @@ class CaptureReservationTest extends AbstractApiTest
     {
         $api = $this->getCaptureReservation();
         $api->setTransactionId(123);
-        $this->assertInstanceOf(Capture::class, $api->call());
+        $this->assertInstanceOf(CaptureReservationResponse::class, $api->call());
     }
 
     /**
@@ -42,7 +40,7 @@ class CaptureReservationTest extends AbstractApiTest
     {
         $api = $this->getCaptureReservation();
         $api->setTransactionId(123);
-        /** @var Capture $response */
+        /** @var CaptureReservationResponse $response */
         $response = $api->call();
 
         $this->assertEquals(0.20, $response->CaptureAmount);
@@ -56,7 +54,7 @@ class CaptureReservationTest extends AbstractApiTest
     {
         $api = $this->getCaptureReservation();
         $api->setTransactionId(123);
-        /** @var Capture $response */
+        /** @var CaptureReservationResponse $response */
         $response = $api->call();
         /** @var Transaction $transaction */
         $transaction = $response->Transactions[0];
@@ -93,23 +91,12 @@ class CaptureReservationTest extends AbstractApiTest
 
     public function test_capture_reservation_transaction_orderlines()
     {
-        $orderlines = [];
-        $orderline = new OrderLine('White sugar', 'productid', 1.5, 5.75);
-        $orderline->taxPercent = 20;
-        $orderline->unitCode = 'kg';
-        $orderlines[] = $orderline;
-
-        $orderline = new OrderLine('Brown sugar', 'productid2', 2.5, 8.75);
-        $orderline->unitCode = 'kg';
-        $orderline->taxPercent = 20;
-        $orderlines[] = $orderline;
-
         $transaction = new Transaction();
         $transaction->TransactionId = 456;
 
         $api = $this->getCaptureReservation();
         $api->setTransaction($transaction);
-        $api->setOrderLines($orderlines);
+        $api->setOrderLines($this->getOrderLines());
         $api->call();
 
         $request = $api->getRawRequest();
@@ -175,26 +162,7 @@ class CaptureReservationTest extends AbstractApiTest
             new Response(400, ['text-content' => 'application/xml'])
         ]));
 
-        $api = (new CaptureReservation())
-            ->setClient($client)
-            ->setAuthentication($this->getAuth())
-            ->setTransactionId(123)
-        ;
-        $api->call();
-    }
-
-    public function test_capture_reservation_transaction_require_auth()
-    {
-        $this->setExpectedException(AuthenticationRequiredException::class);
-
-        $transaction = new Transaction();
-        $transaction->TransactionId = 456;
-
-        $client = $this->getClient($mock = new MockHandler([
-            new Response(200, ['text-content' => 'application/xml'])
-        ]));
-
-        $api = (new CaptureReservation())
+        $api = (new CaptureReservation($this->getAuth()))
             ->setClient($client)
             ->setTransactionId(123)
         ;

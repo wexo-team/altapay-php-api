@@ -23,15 +23,17 @@
 
 namespace Altapay\ApiTest\Api\Api;
 
-use Altapay\Api\Request\Card;
-use Altapay\Api\Request\Customer;
-use Altapay\Api\ReservationOfFixedAmount;
-use Altapay\Api\Response\Embeds\Address;
-use Altapay\Api\Types\FraudServices;
-use Altapay\Api\Types\PaymentSources;
-use Altapay\Api\Types\PaymentTypes;
-use Altapay\Api\Types\ShippingMethods;
-use Altapay\Api\Types\TypeInterface;
+use Altapay\Api\Payments\ReservationOfFixedAmount;
+use Altapay\Request\Card;
+use Altapay\Request\Customer;
+use Altapay\Response\Embeds\Address;
+use Altapay\Response\Embeds\Terminal;
+use Altapay\Response\ReservationOfFixedAmountResponse;
+use Altapay\Types\FraudServices;
+use Altapay\Types\PaymentSources;
+use Altapay\Types\PaymentTypes;
+use Altapay\Types\ShippingMethods;
+use Altapay\Types\TypeInterface;
 use Altapay\ApiTest\Api\AbstractApiTest;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -50,27 +52,23 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/reservationoffixedamount.xml'))
         ]));
 
-        return (new ReservationOfFixedAmount())
+        return (new ReservationOfFixedAmount($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
     public function test_missing_all_options()
     {
-        $this->setExpectedException(
-            MissingOptionsException::class,
-            'The required options "amount", "currency", "shop_orderid", "terminal" are missing.'
-        );
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required options "amount", "currency", "shop_orderid", "terminal" are missing.');
         $this->getapi()->call();
     }
 
     public function test_missing_terminal_options()
     {
-        $this->setExpectedException(
-            MissingOptionsException::class,
-            'The required option "terminal" is missing.'
-        );
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "terminal" is missing.');
+
         $api = $this->getapi();
         $api->setAmount(200.50);
         $api->setCurrency(957);
@@ -98,6 +96,41 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $this->assertEquals(155.23, $parts['surcharge']);
     }
 
+    public function test_terminal()
+    {
+        $terminal = new Terminal();
+        $terminal->Title = 'terminal object';
+
+        $api = $this->getapi();
+        $api->setTerminal($terminal);
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+        $api->setSurcharge(155.23);
+        $api->call();
+        $request = $api->getRawRequest();
+
+        $this->assertEquals($this->getExceptedUri('reservationOfFixedAmount/'), $request->getUri()->getPath());
+        parse_str($request->getUri()->getQuery(), $parts);
+        $this->assertEquals('terminal object', $parts['terminal']);
+    }
+
+    public function test_wrong_currency()
+    {
+        $this->setExpectedException(
+            InvalidOptionsException::class,
+            'The option "currency" with value "danske kroner" is invalid.'
+        );
+
+        $api = $this->getapi();
+        $api->setTerminal('my terminal');
+        $api->setAmount(200.50);
+        $api->setCurrency('danske kroner');
+        $api->setShopOrderId('order id');
+        $api->setSurcharge(155.23);
+        $api->call();
+    }
+
     public function test_creditcard_and_token()
     {
         $this->setExpectedException(
@@ -113,6 +146,24 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
 
         $api->setCard(new Card(1234, 10, 12, 100));
         $api->setCreditCardToken('token');
+        $api->call();
+    }
+
+    public function test_token_and_creditcard()
+    {
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'You can not set both a credit card token and a credit card'
+        );
+
+        $api = $this->getapi();
+        $api->setTerminal('my terminal');
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+
+        $api->setCreditCardToken('token');
+        $api->setCard(new Card(1234, 10, 12, 100));
         $api->call();
     }
 
@@ -158,27 +209,7 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $api->setCurrency(957);
         $api->setShopOrderId('order id');
 
-        $billing = new Address();
-        $billing->Firstname = 'First name';
-        $billing->Lastname = 'Last name';
-        $billing->Address = 'my address';
-        $billing->City = 'Somewhere';
-        $billing->PostalCode = '2000';
-        $billing->Region = '0';
-        $billing->Country = 'DK';
-
-        $shipping = new Address();
-        $shipping->Firstname = 'First name';
-        $shipping->Lastname = 'Last name';
-        $shipping->Address = 'my address';
-        $shipping->City = 'Somewhere';
-        $shipping->PostalCode = '2000';
-        $shipping->Region = '0';
-        $shipping->Country = 'DK';
-
-        $customer = new Customer($billing, $shipping);
-        $customer->setCreatedDate(new \DateTime('2016-11-25'));
-        $api->setCustomerInfo($customer);
+        $api->setCustomerInfo($this->getCustomerInfo());
         $api->call();
 
         $request = $api->getRawRequest();
@@ -285,6 +316,61 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
             'shipping_method',
             'setShippingMethod'
         );
+    }
+
+    public function test_transaction_info()
+    {
+        $api = $this->getapi();
+        $api->setTerminal('my terminal');
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+
+        $transactionInfo[] = 'Trans 1';
+        $transactionInfo[] = 'Trans 2';
+        $api->setTransactionInfo($transactionInfo);
+        $api->call();
+
+        $request = $api->getRawRequest();
+        parse_str($request->getUri()->getQuery(), $parts);
+        $this->assertCount(2, $parts['transaction_info']);
+        $this->assertEquals('Trans 2', $parts['transaction_info'][1]);
+    }
+
+    public function test_result()
+    {
+        $api = $this->getapi();
+        $api->setTerminal('my terminal');
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+
+        /** @var ReservationOfFixedAmountResponse $response */
+        $response = $api->call();
+
+        $this->assertInstanceOf(ReservationOfFixedAmountResponse::class, $response);
+        $this->assertEquals('Success', $response->Result);
+        $this->assertCount(1, $response->Transactions);
+    }
+
+    public function test_real_api_call_response()
+    {
+        $client = $this->getClient($mock = new MockHandler([
+            new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/reservationoffixedamount_2.xml'))
+        ]));
+
+        $api = (new ReservationOfFixedAmount($this->getAuth()))
+            ->setClient($client)
+        ;
+
+        $api->setTerminal('my terminal');
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+
+        /** @var ReservationOfFixedAmountResponse $response */
+        $response = $api->call();
+        $this->assertInstanceOf(ReservationOfFixedAmountResponse::class, $response);
     }
 
     /**

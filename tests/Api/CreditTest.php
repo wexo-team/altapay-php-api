@@ -23,10 +23,11 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Credit;
-use Altapay\Api\Request\Card;
-use Altapay\Api\Exceptions\CreditCardTokenAndCardUsedException;
-use Altapay\Api\Types\PaymentSources;
+use Altapay\Api\Payments\Credit;
+use Altapay\Request\Card;
+use Altapay\Exceptions\CreditCardTokenAndCardUsedException;
+use Altapay\Response\CreditResponse as CreditResponse;
+use Altapay\Types\PaymentSources;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -40,18 +41,17 @@ class CreditTest extends AbstractApiTest
     protected function getCredit()
     {
         $client = $this->getClient($mock = new MockHandler([
-            new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/customreport.txt'))
+            new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/reservationoffixedamount.xml'))
         ]));
 
-        return (new Credit())
+        return (new Credit($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
     public function test_options()
     {
-        $this->setExpectedException(CreditCardTokenAndCardUsedException::class);
+        $this->expectException(CreditCardTokenAndCardUsedException::class);
 
         $card = new Card(1234, 12, 12, 122);
         $api = $this->getCredit();
@@ -111,7 +111,9 @@ class CreditTest extends AbstractApiTest
 
     public function paymentSourceDataProvider()
     {
-        return [PaymentSources::getAllowed()];
+        return [
+            PaymentSources::getAllowed()
+        ];
     }
 
     /**
@@ -142,6 +144,25 @@ class CreditTest extends AbstractApiTest
         $api->setCreditCardToken('token');
         $api->setPaymentSource('webshop');
         $api->call();
+    }
+
+    public function test_response()
+    {
+        $card = new Card(1234567890, 5, 19, 122);
+        $api = $this->getCredit();
+        $api->setTerminal('terminal');
+        $api->setShopOrderId(123);
+        $api->setAmount(20.44);
+        $api->setCurrency(967);
+        $api->setCard($card);
+
+        /** @var CreditResponse $response */
+        $response = $api->call();
+
+        $this->assertInstanceOf(CreditResponse::class, $response);
+        $this->assertEquals('Success', $response->Result);
+        $this->assertCount(1, $response->Transactions);
+
     }
 
 }

@@ -23,8 +23,8 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\Embeds\Funding;
-use Altapay\Api\FundingDownload;
+use Altapay\Api\Others\FundingDownload;
+use Altapay\Response\Embeds\Funding;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -40,9 +40,8 @@ class FundingDownloadTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/fundingdownload.txt'))
         ]));
 
-        return (new FundingDownload())
+        return (new FundingDownload($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 

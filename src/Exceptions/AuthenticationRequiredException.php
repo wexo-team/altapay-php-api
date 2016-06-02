@@ -21,7 +21,7 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Exceptions;
+namespace Altapay\Exceptions;
 
 class AuthenticationRequiredException extends Exception
 {

@@ -1,14 +1,14 @@
 <?php
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\Embeds\Address;
-use Altapay\Api\Response\Embeds\Country;
-use Altapay\Api\Response\Embeds\CustomerInfo;
-use Altapay\Api\Response\Embeds\PaymentInfo;
-use Altapay\Api\Response\Embeds\PaymentNatureService;
-use Altapay\Api\Response\Embeds\ReconciliationIdentifier;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\Payments;
+use Altapay\Api\Others\Payments;
+use Altapay\Response\Embeds\Address;
+use Altapay\Response\Embeds\Country;
+use Altapay\Response\Embeds\CustomerInfo;
+use Altapay\Response\Embeds\PaymentInfo;
+use Altapay\Response\Embeds\PaymentNatureService;
+use Altapay\Response\Embeds\ReconciliationIdentifier;
+use Altapay\Response\Embeds\Transaction;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
@@ -23,9 +23,8 @@ class PaymentsTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/payments.xml'))
         ]));
 
-        $api = (new Payments())
+        $api = (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
         return $api->call();
     }
@@ -36,24 +35,22 @@ class PaymentsTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/payment.xml'))
         ]));
 
-        $api = (new Payments())
+        $api = (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
         return $api->call();
     }
 
     public function test_payments_exception()
     {
-        $this->setExpectedException(ClientException::class);
+        $this->expectException(ClientException::class);
 
         $client = $this->getClient($mock = new MockHandler([
             new Response(400)
         ]));
 
-        (new Payments())
+        (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->call()
         ;
     }
@@ -64,9 +61,8 @@ class PaymentsTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/payments.xml'))
         ]));
 
-        $api = (new Payments())
+        $api = (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->setTransactionId('transactionid')
             ->setTerminal('terminalvalue')
             ->setShopOrderId('shoporderid')
@@ -97,9 +93,8 @@ class PaymentsTest extends AbstractApiTest
         $trans = new Transaction();
         $trans->TransactionId = 'my trans number';
 
-        $api = (new Payments())
+        $api = (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
             ->setTransaction($trans)
         ;
         $api->call();

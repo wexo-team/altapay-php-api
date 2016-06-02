@@ -21,14 +21,11 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api;
+namespace Altapay;
 
-use Altapay\Api\Event\BeforeHandlingResponseEvent;
-use Altapay\Api\Event\BeforeClientSendEvent;
-use Altapay\Api\Event\AfterResolveOptionsEvent;
-use Altapay\Api\Event\BeforeRequestEvent;
-use Altapay\Api\Exceptions\AuthenticationRequiredException;
-use Altapay\Api\Exceptions\ClientException;
+use Altapay\Event;
+use Altapay\Exceptions;
+use Altapay\Response\AbstractResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException as GuzzleHttpClientException;
@@ -129,7 +126,7 @@ abstract class AbstractApi
      *
      * @param Request $request
      * @param Response $response
-     * @return mixed
+     * @return AbstractResponse
      */
     abstract protected function handleResponse(Request $request, Response $response);
 
@@ -146,12 +143,14 @@ abstract class AbstractApi
      *
      * @param Authentication $authentication
      */
-    public function __construct(Authentication $authentication = null)
+    public function __construct(Authentication $authentication)
     {
         $this->unresolvedOptions = [];
         $this->dispatcher = new EventDispatcher();
         $this->httpClient = new Client();
-        $this->authentication = $this->setAuthentication($authentication);
+
+        $this->authentication = $authentication;
+        $this->baseUrl = $authentication->getBaseurl();
     }
 
     /**
@@ -162,22 +161,6 @@ abstract class AbstractApi
     public function call()
     {
         return $this->doResponse();
-    }
-
-    /**
-     * Set authentication
-     *
-     * @param Authentication $authentication
-     * @return $this
-     */
-    public function setAuthentication(Authentication $authentication = null)
-    {
-        if ($authentication) {
-            $this->authentication = $authentication;
-            $this->baseUrl = $authentication->getBaseurl();
-        }
-
-        return $this;
     }
 
     /**
@@ -227,11 +210,11 @@ abstract class AbstractApi
     /**
      * Handle exception response
      *
-     * @param ClientException $exception
-     * @throws ClientException
+     * @param Exceptions\ClientException $exception
+     * @throws Exceptions\ClientException
      * @return bool|void
      */
-    protected function handleExceptionResponse(ClientException $exception)
+    protected function handleExceptionResponse(Exceptions\ClientException $exception)
     {
         throw $exception;
     }
@@ -243,20 +226,45 @@ abstract class AbstractApi
     {
         $resolver = new OptionsResolver();
 
-        if ($this->authRequired() && ! $this->authentication instanceof Authentication) {
-            throw new AuthenticationRequiredException();
-        }
+        $this->configureOptions($resolver);
 
         $this->setTransactionResolver($resolver);
         $this->setOrderLinesResolver($resolver);
+        $this->setAmountResolver($resolver);
+        $this->setTerminalResolver($resolver);
+        $this->setCurrencyResolver($resolver);
+        $this->setShopOrderIdResolver($resolver);
+        $this->setTransactionInfoResolver($resolver);
+        $this->setCustomerInfoResolver($resolver);
 
-        $this->configureOptions($resolver);
         $this->options = $resolver->resolve($this->unresolvedOptions);
 
         $this->dispatcher->dispatch(
-            AfterResolveOptionsEvent::NAME,
-            new AfterResolveOptionsEvent($this->options)
+            Event\AfterResolveOptionsEvent::NAME,
+            new Event\AfterResolveOptionsEvent($this->options)
         );
+    }
+
+    /**
+     * Validate response
+     *
+     * @param mixed $response
+     * @throws Exceptions\ResponseHeaderException
+     * @throws Exceptions\ResponseMessageException
+     */
+    protected function validateResponse($response)
+    {
+        if ($response instanceof AbstractResponse) {
+            if ($response->Header->ErrorCode != 0) {
+                throw new Exceptions\ResponseHeaderException($response->Header);
+            }
+
+            if (property_exists($response, 'MerchantErrorMessage')) {
+                if ($response->MerchantErrorMessage) {
+                    throw new Exceptions\ResponseMessageException($response->MerchantErrorMessage);
+                }
+            }
+        }
     }
 
     /**
@@ -272,22 +280,31 @@ abstract class AbstractApi
             $headers
         );
 
-        $this->dispatcher->dispatch(BeforeRequestEvent::NAME, new BeforeRequestEvent($request));
+        $this->dispatcher->dispatch(
+            Event\BeforeHttpResponseEvent::NAME,
+            new Event\BeforeHttpResponseEvent($request)
+        );
         $this->request = $request;
-
-        $this->dispatcher->dispatch(BeforeClientSendEvent::NAME, new BeforeClientSendEvent($request));
         try {
             $response = $this->getClient()->send($request);
             $this->response = $response;
 
             $this->dispatcher->dispatch(
-                BeforeHandlingResponseEvent::NAME,
-                new BeforeHandlingResponseEvent($request, $response)
+                Event\BeforeHandlingResponseEvent::NAME,
+                new Event\BeforeHandlingResponseEvent($request, $response)
             );
 
-            return $this->handleResponse($request, $response);
+            $output = $this->handleResponse($request, $response);
+            $this->validateResponse($output);
+
+            $this->dispatcher->dispatch(
+                Event\AfterHandlingResponseEvent::NAME,
+                new Event\AfterHandlingResponseEvent($request, $response, $output)
+            );
+
+            return $output;
         } catch (GuzzleHttpClientException $e) {
-            $exception = new ClientException($e->getMessage(), $e->getRequest(), $e->getResponse());
+            $exception = new Exceptions\ClientException($e->getMessage(), $e->getRequest(), $e->getResponse());
             return $this->handleExceptionResponse($exception);
         }
     }
@@ -376,6 +393,60 @@ abstract class AbstractApi
      * @param OptionsResolver $resolver
      */
     protected function setOrderLinesResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve amount option
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setAmountResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve terminal option
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setTerminalResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve currency option
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setCurrencyResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve shop order id
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setShopOrderIdResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve transaction info option
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setTransactionInfoResolver(OptionsResolver $resolver)
+    {
+    }
+
+    /**
+     * Resolve amount option
+     *
+     * @param OptionsResolver $resolver
+     */
+    protected function setCustomerInfoResolver(OptionsResolver $resolver)
     {
     }
 }

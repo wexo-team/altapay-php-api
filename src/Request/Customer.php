@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Request;
+namespace Altapay\Request;
 
-use Altapay\Api\Response\Embeds\Address;
+use Altapay\Response\Embeds\Address;
 
 class Customer extends AbstractSerializer
 {

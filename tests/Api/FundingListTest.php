@@ -23,10 +23,10 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\Embeds\Funding;
-use Altapay\Api\Response\Embeds\Shop;
-use Altapay\Api\Response\Fundings;
-use Altapay\Api\FundingList;
+use Altapay\Api\Others\FundingList;
+use Altapay\Response\Embeds\Funding;
+use Altapay\Response\Embeds\Shop;
+use Altapay\Response\FundingsResponse;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -42,9 +42,8 @@ class FundingListTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/multiplefundinglist.xml'))
         ]));
 
-        return (new FundingList())
+        return (new FundingList($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -57,9 +56,8 @@ class FundingListTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/singlefundinglist.xml'))
         ]));
 
-        return (new FundingList())
+        return (new FundingList($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 
@@ -85,7 +83,7 @@ class FundingListTest extends AbstractApiTest
     public function test_fundlinglist_single()
     {
         $api = $this->getSingleFundingsList();
-        /** @var Fundings $response */
+        /** @var FundingsResponse $response */
         $response = $api->call();
         $this->assertCount(1, $response->Fundings, 'num fundings');
     }
@@ -93,7 +91,7 @@ class FundingListTest extends AbstractApiTest
     public function test_fundlinglist_multiple()
     {
         $api = $this->getMultipleFundingsList();
-        /** @var Fundings $response */
+        /** @var FundingsResponse $response */
         $response = $api->call();
         $this->assertCount(2, $response->Fundings, 'num fundings');
     }

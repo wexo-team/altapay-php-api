@@ -23,10 +23,10 @@
 
 namespace Altapay\ApiTest\Api;
 
-use Altapay\Api\Response\Embeds\Address;
-use Altapay\Api\Response\InvoiceText as InvoiceTextDocument;
-use Altapay\Api\Response\Transaction;
-use Altapay\Api\InvoiceText;
+use Altapay\Api\Others\InvoiceText;
+use Altapay\Response\Embeds\Address;
+use Altapay\Response\Embeds\Transaction;
+use Altapay\Response\InvoiceTextResponse as InvoiceTextDocument;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -42,9 +42,8 @@ class InvoiceTextTest extends AbstractApiTest
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/invoicetext.xml'))
         ]));
 
-        return (new InvoiceText())
+        return (new InvoiceText($this->getAuth()))
             ->setClient($client)
-            ->setAuthentication($this->getAuth())
         ;
     }
 

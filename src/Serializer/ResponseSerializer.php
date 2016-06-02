@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Serializer;
+namespace Altapay\Serializer;
 
-use Altapay\Api\Response\AbstractResponse;
+use Altapay\Response\AbstractResponse;
 
 /**
  * Response serializer
@@ -44,8 +44,8 @@ class ResponseSerializer
         $objectName,
         \SimpleXMLElement $data,
         $childKey = false,
-        \SimpleXMLElement $header = null)
-    {
+        \SimpleXMLElement $header = null
+    ) {
         if ($childKey !== false) {
             $documents = [];
             foreach ($data->{$childKey} as $d) {

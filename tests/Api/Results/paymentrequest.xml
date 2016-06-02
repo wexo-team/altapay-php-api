@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<APIResponse version="20100929">
+    <Header>
+        <Date>2010-09-29T12:34:56+02:00</Date>
+        <Path>API/createPaymentRequest</Path>
+        <ErrorCode>0</ErrorCode>
+        <ErrorMessage></ErrorMessage>
+    </Header>
+    <Body>
+        <Result>Success</Result>
+        <PaymentRequestId>2349494a-6adf-49f7-8096-2125a969e104</PaymentRequestId>
+        <Url>https://gateway.altapaysecure.com/merchant.php/API/requestForm?pid=2349494a-6adf-49f7-8096-2125a969e104</Url>
+        <DynamicJavascriptUrl>https://gateway.altapaysecure.com/eCommerce.php/API/embeddedPaymentWindow?pid=2349494a-6adf-49f7-8096-2125a969e104</DynamicJavascriptUrl>
+    </Body>
+</APIResponse>

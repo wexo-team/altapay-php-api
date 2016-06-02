@@ -21,9 +21,10 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response;
+namespace Altapay\Response;
 
-use Altapay\Api\Serializer\ResponseSerializer;
+use Altapay\Response\Embeds\Header;
+use Altapay\Serializer\ResponseSerializer;
 
 /**
  * Class AbstractResponse
