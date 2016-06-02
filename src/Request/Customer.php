@@ -23,7 +23,7 @@
 
 namespace Altapay\Request;
 
-use Altapay\Response\Embeds\Address;
+use Altapay\Api\Request\Address;
 
 class Customer extends AbstractSerializer
 {
@@ -92,6 +92,13 @@ class Customer extends AbstractSerializer
     private $createdDate;
 
     /**
+     * Gender
+     *
+     * @var string
+     */
+    private $gender;
+
+    /**
      * Customer constructor.
      *
      * @param Address $billingAddress Billing address
@@ -101,6 +108,16 @@ class Customer extends AbstractSerializer
     {
         $this->billing = $billingAddress;
         $this->shipping = $shippingAddress;
+    }
+
+    /**
+     * @param Address $shipping
+     * @return Customer
+     */
+    public function setShipping(Address $shipping)
+    {
+        $this->shipping = $shipping;
+        return $this;
     }
 
     /**
@@ -205,6 +222,26 @@ class Customer extends AbstractSerializer
     }
 
     /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Sets the gender
+     *
+     * @param bool $isFemale
+     * @return Customer
+     */
+    public function setGender($isFemale)
+    {
+        $this->gender = $isFemale ? 'F' : 'M';
+        return $this;
+    }
+
+    /**
      * Serialize a object
      *
      * @return array
@@ -235,6 +272,10 @@ class Customer extends AbstractSerializer
 
         if ($this->bankPhone) {
             $output['bank_phone'] = $this->bankPhone;
+        }
+
+        if ($this->gender) {
+            $output['gender'] = $this->gender;
         }
 
         $this->setAddress($output, 'billing_', $this->billing);

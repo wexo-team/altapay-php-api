@@ -1,7 +1,7 @@
 [<](../index.md) Altapay - PHP Api - Authentication
 ================================================
 
-To all API calls (but not [Test Connection](test_connection.md)) you will need a authentication object
+To all API calls (but not [Test Connection](../test/test_connection.md)) you will need a authentication object
  
 ```php
 $auth = new \Altapay\Api\Authentication('username', 'password', 'baseurl');

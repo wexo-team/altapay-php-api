@@ -23,7 +23,7 @@
 
 namespace Altapay\Request;
 
-use Altapay\Response\Embeds\Address;
+use Altapay\Api\Request\Address;
 
 class InvoiceCustomer extends AbstractSerializer
 {
