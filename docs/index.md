@@ -21,7 +21,7 @@ Docs: https://testgateway.altapaysecure.com/merchant.php/help/Merchant_API
 
 | Method  | Description |
 |---|---|
-| - [Payment request](ecommerce/payment_request.md) | This is the preferred way of redirecting a customer to the AltaPay payment page |
+| [Payment request](ecommerce/payment_request.md) | This is the preferred way of redirecting a customer to the AltaPay payment page |
 
 ### Payments
 
@@ -29,7 +29,7 @@ Docs: https://testgateway.altapaysecure.com/merchant.php/help/Merchant_API
 |---|---|
 | x [Capture reservation](payments/capture_reservation.md) | When the funds of a payment has been reserved and the goods are ready for delivery your system should capture the payment. |
 | x [Release reservation](payments/release_reservation.md) |  Every now and then you for some reason do not want to capture a payment. In these cases you must cancel it to release the reservation of the funds. |
-| x [Refund captured reservation](payments/refund_captured_reservation.md) | Sometimes after delivering the goods/services and capturing the funds you want to repay/refund the customer. Either you want to make a full refund or you only want to make a partial refund. | 
+| x [Refund captured reservation](payments/refund_captured_reservation.md) | Sometimes after delivering the goods/services and capturing the funds you want to repay/refund the customer. Either you want to make a full refund or you only want to make a partial refund. |
 | x [Reservation of fixed amount](payments/reservation_of_fixed_amount.md) | This will create a MO/TO payment. The payment can be made with a credit card, or a credit card token and the CVV |
 | x [Credit](payments/credit.md) | This will create a Credit payment. The payment can be made with a credit card, or a credit card token and the CVV |
 | - [Invoice reservation](payments/invoice_reservation.md) | |

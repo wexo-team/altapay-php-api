@@ -18,6 +18,22 @@
 
 ```php
 $request = new \Altapay\Api\Ecommerce\PaymentRequest($auth);
+// Set the options - see Required and Optional below
+$request->setTerminal('my terminal');
+// etc
+// Do the call
+try {
+    $response = $request->call();
+    // Response will be a object - See Response below
+} catch (\Altapay\Exceptions\ClientException $e) {
+    // Could not connect
+} catch (\Altapay\Exceptions\ResponseHeaderException $e) {
+    // Response error in header
+    $e->getHeader()->ErrorMessage
+} catch (\Altapay\Exceptions\ResponseMessageException $e) {
+    // Error message
+    $e->getMessage();
+}
 ```
 
 ### Required
@@ -127,3 +143,11 @@ To enable fraud detection
 
 # Response
 
+Object of `\Altapay\Response\PaymentRequestResponse` 
+
+| Method  | Description | Type |
+|---|---|---|
+| `$response->Result` | The result | string
+| `$response->PaymentRequestId` | The ID of the payment request | string
+| `$response->Url` | URL to a secure form you can redirect the user to | string
+| `$response->DynamicJavascriptUrl` | Javascript URL which you can open in a iframe | string
