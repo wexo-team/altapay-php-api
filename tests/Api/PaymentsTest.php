@@ -63,7 +63,7 @@ class PaymentsTest extends AbstractApiTest
 
         $api = (new Payments($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId('transactionid')
+            ->setTransaction('transactionid')
             ->setTerminal('terminalvalue')
             ->setShopOrderId('shoporderid')
             ->setShop('shopkey')

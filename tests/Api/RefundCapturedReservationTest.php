@@ -51,7 +51,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
     public function test_refund_reservation()
     {
         $api = $this->getRefundCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         $this->assertInstanceOf(RefundResponse::class, $api->call());
     }
 
@@ -61,7 +61,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
     public function test_capture_refund_data()
     {
         $api = $this->getRefundCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var RefundResponse $response */
         $response = $api->call();
 
@@ -78,7 +78,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
     public function test_capture_refund_transactions_data()
     {
         $api = $this->getRefundCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var RefundResponse $response */
         $response = $api->call();
         /** @var Transaction $transaction */
@@ -212,7 +212,7 @@ class RefundCapturedReservationTest extends AbstractApiTest
 
         $api = (new RefundCapturedReservation($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId(123)
+            ->setTransaction(123)
         ;
         $api->call();
     }

@@ -29,7 +29,7 @@ class CaptureReservationTest extends AbstractApiTest
     public function test_capture_reservation()
     {
         $api = $this->getCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         $this->assertInstanceOf(CaptureReservationResponse::class, $api->call());
     }
 
@@ -39,7 +39,7 @@ class CaptureReservationTest extends AbstractApiTest
     public function test_capture_reservation_data()
     {
         $api = $this->getCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var CaptureReservationResponse $response */
         $response = $api->call();
 
@@ -53,7 +53,7 @@ class CaptureReservationTest extends AbstractApiTest
     public function test_capture_reservation_transactions_data()
     {
         $api = $this->getCaptureReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var CaptureReservationResponse $response */
         $response = $api->call();
         /** @var Transaction $transaction */
@@ -164,7 +164,7 @@ class CaptureReservationTest extends AbstractApiTest
 
         $api = (new CaptureReservation($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId(123)
+            ->setTransaction(123)
         ;
         $api->call();
     }

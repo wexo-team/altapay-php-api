@@ -36,24 +36,12 @@ trait TransactionsTrait
     /**
      * The id of a specific payment.
      *
-     * @param string $transactionId
+     * @param string|Transaction $transactionId
      * @return $this
      */
-    public function setTransactionId($transactionId)
+    public function setTransaction($transactionId)
     {
         $this->unresolvedOptions['transaction_id'] = $transactionId;
-        return $this;
-    }
-
-    /**
-     * The transaction of a specific payment.
-     *
-     * @param Transaction $transaction
-     * @return $this
-     */
-    public function setTransaction(Transaction $transaction)
-    {
-        $this->unresolvedOptions['transaction_id'] = $transaction;
         return $this;
     }
 

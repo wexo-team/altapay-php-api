@@ -50,7 +50,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
     public function test_reserve_subscription_charge()
     {
         $api = $this->getReserveSubscriptionCharge();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         $this->assertInstanceOf(ReserveSubscriptionResponse::class, $api->call());
     }
 
@@ -60,7 +60,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
     public function test_reserve_subscription_charge_data()
     {
         $api = $this->getReserveSubscriptionCharge();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var ReserveSubscriptionResponse $response */
         $response = $api->call();
         $this->assertEquals('Success', $response->Result);
@@ -82,7 +82,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
         $this->assertEquals(456, $parts['transaction_id']);
 
         $api = $this->getReserveSubscriptionCharge();
-        $api->setTransactionId('helloworld');
+        $api->setTransaction('helloworld');
         $api->setAmount(200.5);
         $api->call();
         $request = $api->getRawRequest();
@@ -91,7 +91,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
         $this->assertEquals(200.5, $parts['amount']);
 
         $api = $this->getReserveSubscriptionCharge();
-        $api->setTransactionId('my trans id has spaces');
+        $api->setTransaction('my trans id has spaces');
         $api->call();
         $request = $api->getRawRequest();
         parse_str($request->getUri()->getQuery(), $parts);
@@ -111,7 +111,7 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
 
         $api = (new ReserveSubscriptionCharge($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId(123)
+            ->setTransaction(123)
         ;
         $api->call();
     }

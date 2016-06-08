@@ -1,6 +1,10 @@
 [<](../index.md) Altapay - PHP Api - Payment request
 =================================================
 
+This is the preferred way of redirecting a customer to the AltaPay payment page. By invoking this method you send all the relavant payment information to the gateway and in return you get a URL which you can redirect the customer to.
+
+Because this call does not happen in the browser, you do not need to worry about the user tampering with or even seeing the data posted to the gateway, and thus don't need to pass a checksum for the customer information.
+
 - [Request](#request)
     + [Required](#required)
         * [Example](#example)
@@ -61,7 +65,7 @@ $request->setCurrency('SEK');
 |---|---|---|
 | setLanguage(string) | The language of the payment form. Will carry on the optional parameter if specified 1). If the optional parameter is not specified it will hold the language derived from the browsers accept-headers. If none of the languages accepted by the browser are supported the language will default to English "en". | string - [See languages](../types/languages.md)
 | setTransactionInfo(array) | This is a one-dimensional associative array. This is where you put any value that you would like to bind to the payment. | array
-| setType(string) | The type of the authorization, please refer to the description of [Payment Types](../types/paymenttypes.md)<br />Defaults is "payment". | string - [See payment types](../types/paymenttypes.md)	
+| setType(string) | The type of the authorization, please refer to the description of [Payment Types](../types/paymenttypes.md)<br />Defaults is "payment". | string - [See payment types](../types/paymenttypes.md)
 | setCcToken(string) | Use the credit_card_token from a previous payment to allow your customer to buy with the same credit card again. The terminal settings have to have "Enable credit card token" enabled for this to work. | [a-z0-9]{41}
 | setSaleReconciliationIdentifier(string) | If you wish to define the reconciliation identifier used in the reconciliation csv files, you can choose to set it here. This will only be used for paymentAndCapture payments. | string
 | setSaleInvoiceNumber(string) | This sets the invoice number to be used on capture, if no invoice number is passed in on capture, and the amount captured is equal to the initial amount. | string
@@ -70,7 +74,7 @@ $request->setCurrency('SEK');
 | setPaymentSource(string) | The source of the payment. Default is "eCommerce" | string - [See Payment sources](../types/paymentsources.md)
 | setCustomerInfo(Customer) | Customer info | Customer object [See customer info](../request/customerinfo.md) |
 | setConfig(Config) | used to overwrite the terminal settings | Config object [See config](../request/config.md)
-| orderLines(array|OrderLine) | Order lines | array of OrderLine objects - [See OrderLine](../request/orderline.md) 
+| orderLines(array|OrderLine) | Order lines | array of OrderLine objects - [See OrderLine](../request/orderline.md)
 
 ##### Optional parameters for invoice payments
 
@@ -89,7 +93,7 @@ MCC is short for merchant category code and enumerates what kind of business you
 |---|---|---|
 | Birthdate | The birth date of the customer |
 | Billing Lastname | The last name for the customer's billing address. |
-| Billing Postal | The postal code of the customer's billing address. | 
+| Billing Postal | The postal code of the customer's billing address. |
 
 ##### Mandatory parameters for invoice payments
 
@@ -108,7 +112,7 @@ To enable fraud detection
 
 | Method  | Description |
 |---|---|---|
-| setFraudService(string) | If you wish to decide pr. Payment wich fraud detection service to use | string - [See fraud services](../types/fraudservices.md) 
+| setFraudService(string) | If you wish to decide pr. Payment wich fraud detection service to use | string - [See fraud services](../types/fraudservices.md)
 
 | Method  | Description |
 |---|---|---|
@@ -143,7 +147,7 @@ To enable fraud detection
 
 # Response
 
-Object of `\Altapay\Response\PaymentRequestResponse` 
+Object of `\Altapay\Response\PaymentRequestResponse`
 
 | Method  | Description | Type |
 |---|---|---|

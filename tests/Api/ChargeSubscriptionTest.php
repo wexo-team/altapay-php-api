@@ -50,7 +50,7 @@ class ChargeSubscriptionTest extends AbstractApiTest
     public function test_charge_subscription()
     {
         $api = $this->getChargeSubscription();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         $this->assertInstanceOf(ChargeSubscriptionDocument::class, $api->call());
     }
 
@@ -60,7 +60,7 @@ class ChargeSubscriptionTest extends AbstractApiTest
     public function test_charge_subscription_data()
     {
         $api = $this->getChargeSubscription();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var ChargeSubscriptionDocument $response */
         $response = $api->call();
         $this->assertEquals('Success', $response->Result);
@@ -82,7 +82,7 @@ class ChargeSubscriptionTest extends AbstractApiTest
         $this->assertEquals(456, $parts['transaction_id']);
 
         $api = $this->getChargeSubscription();
-        $api->setTransactionId('helloworld');
+        $api->setTransaction('helloworld');
         $api->setAmount(200.5);
         $api->setReconciliationIdentifier('my identifier');
         $api->call();
@@ -93,7 +93,7 @@ class ChargeSubscriptionTest extends AbstractApiTest
         $this->assertEquals('my identifier', $parts['reconciliation_identifier']);
 
         $api = $this->getChargeSubscription();
-        $api->setTransactionId('my trans id has spaces');
+        $api->setTransaction('my trans id has spaces');
         $api->call();
         $request = $api->getRawRequest();
         parse_str($request->getUri()->getQuery(), $parts);
@@ -113,7 +113,7 @@ class ChargeSubscriptionTest extends AbstractApiTest
 
         $api = (new ChargeSubscription($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId(123)
+            ->setTransaction(123)
         ;
         $api->call();
     }

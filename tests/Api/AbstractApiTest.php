@@ -1,10 +1,10 @@
 <?php
 namespace Altapay\ApiTest\Api;
 
+use Altapay\Request\Address;
 use Altapay\Authentication;
 use Altapay\Request\Customer;
 use Altapay\Request\OrderLine;
-use Altapay\Response\Embeds\Address;
 use Altapay\ApiTest\AbstractTest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;

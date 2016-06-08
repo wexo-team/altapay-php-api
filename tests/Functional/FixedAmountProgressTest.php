@@ -141,52 +141,52 @@ class FixedAmountProgressTest extends AbstractFunctionalTest
         $api->call();
     }
 
-    public function test_preauth_cvv_check_error()
-    {
-        $this->markTestSkipped('Not working with API');
-
-        $this->setExpectedException(ResponseMessageException::class, 'TestAcquirer[pan=0572 or amount=5720]');
-
-        $api = new ReservationOfFixedAmount($this->getAuth());
-        $api
-            ->setTerminal($this->getTerminal())
-            ->setShopOrderId(time())
-            ->setAmount(5.72)
-            ->setCurrency('DKK')
-            ->setCard($this->generateCard(4190000000000572))
-        ;
-        $api->call();
-    }
-
-    public function test_preauth_card_failed()
-    {
-        $this->markTestSkipped('Not working with API');
-
-        $api = new ReservationOfFixedAmount($this->getAuth());
-        $api
-            ->setTerminal($this->getTerminal())
-            ->setShopOrderId(time())
-            ->setAmount(16.66)
-            ->setCurrency('DKK')
-            ->setCard($this->generateCard(4120000000001666))
-        ;
-        $api->call();
-    }
-
-    public function test_preauth_card_error()
-    {
-        $this->markTestSkipped('Not working with API');
-
-        $api = new ReservationOfFixedAmount($this->getAuth());
-        $api
-            ->setTerminal($this->getTerminal())
-            ->setShopOrderId(time())
-            ->setAmount(16.67)
-            ->setCurrency('DKK')
-            ->setCard($this->generateCard(4160000000001667))
-        ;
-        $api->call();
-    }
+//    public function test_preauth_cvv_check_error()
+//    {
+//        $this->markTestSkipped('Not working with API');
+//
+//        $this->setExpectedException(ResponseMessageException::class, 'TestAcquirer[pan=0572 or amount=5720]');
+//
+//        $api = new ReservationOfFixedAmount($this->getAuth());
+//        $api
+//            ->setTerminal($this->getTerminal())
+//            ->setShopOrderId(time())
+//            ->setAmount(5.72)
+//            ->setCurrency('DKK')
+//            ->setCard($this->generateCard(4190000000000572))
+//        ;
+//        $api->call();
+//    }
+//
+//    public function test_preauth_card_failed()
+//    {
+//        $this->markTestSkipped('Not working with API');
+//
+//        $api = new ReservationOfFixedAmount($this->getAuth());
+//        $api
+//            ->setTerminal($this->getTerminal())
+//            ->setShopOrderId(time())
+//            ->setAmount(16.66)
+//            ->setCurrency('DKK')
+//            ->setCard($this->generateCard(4120000000001666))
+//        ;
+//        $api->call();
+//    }
+//
+//    public function test_preauth_card_error()
+//    {
+//        $this->markTestSkipped('Not working with API');
+//
+//        $api = new ReservationOfFixedAmount($this->getAuth());
+//        $api
+//            ->setTerminal($this->getTerminal())
+//            ->setShopOrderId(time())
+//            ->setAmount(16.67)
+//            ->setCurrency('DKK')
+//            ->setCard($this->generateCard(4160000000001667))
+//        ;
+//        $api->call();
+//    }
 
     public function test_fraud_check_challenge()
     {

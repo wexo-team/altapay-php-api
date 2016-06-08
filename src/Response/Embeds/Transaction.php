@@ -122,6 +122,10 @@ class Transaction extends AbstractResponse
     public $UpdatedDate;
     public $PaymentNature;
     public $PaymentSchemeName;
+
+    /**
+     * @var PaymentNatureService
+     */
     public $PaymentNatureService;
 
     /**
@@ -130,9 +134,25 @@ class Transaction extends AbstractResponse
     public $FraudRiskScore;
     public $FraudExplanation;
     public $FraudRecommendation;
+
+    /**
+     * @var ChargebackEvent[]
+     */
     public $ChargebackEvents;
+
+    /**
+     * @var PaymentInfo[]
+     */
     public $PaymentInfos;
+
+    /**
+     * @var CustomerInfo
+     */
     public $CustomerInfo;
+
+    /**
+     * @var ReconciliationIdentifier[]
+     */
     public $ReconciliationIdentifiers;
 
     /**

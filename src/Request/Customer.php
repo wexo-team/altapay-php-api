@@ -23,8 +23,6 @@
 
 namespace Altapay\Request;
 
-use Altapay\Api\Request\Address;
-
 class Customer extends AbstractSerializer
 {
 

@@ -50,7 +50,7 @@ class ReleaseReservationTest extends AbstractApiTest
     public function test_release_reservation()
     {
         $api = $this->getReleaseReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         $this->assertInstanceOf(ReleaseReservationDocument::class, $api->call());
     }
 
@@ -60,7 +60,7 @@ class ReleaseReservationTest extends AbstractApiTest
     public function test_release_data()
     {
         $api = $this->getReleaseReservation();
-        $api->setTransactionId(123);
+        $api->setTransaction(123);
         /** @var ReleaseReservationDocument $response */
         $response = $api->call();
         $this->assertEquals('Success', $response->Result);
@@ -82,14 +82,14 @@ class ReleaseReservationTest extends AbstractApiTest
         $this->assertEquals(456, $parts['transaction_id']);
 
         $api = $this->getReleaseReservation();
-        $api->setTransactionId('helloworld');
+        $api->setTransaction('helloworld');
         $api->call();
         $request = $api->getRawRequest();
         parse_str($request->getUri()->getQuery(), $parts);
         $this->assertEquals('helloworld', $parts['transaction_id']);
 
         $api = $this->getReleaseReservation();
-        $api->setTransactionId('my trans id has spaces');
+        $api->setTransaction('my trans id has spaces');
         $api->call();
         $request = $api->getRawRequest();
         parse_str($request->getUri()->getQuery(), $parts);
@@ -109,7 +109,7 @@ class ReleaseReservationTest extends AbstractApiTest
 
         $api = (new ReleaseReservation($this->getAuth()))
             ->setClient($client)
-            ->setTransactionId(123)
+            ->setTransaction(123)
         ;
         $api->call();
     }

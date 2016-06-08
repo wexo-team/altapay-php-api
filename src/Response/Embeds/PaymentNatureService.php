@@ -30,12 +30,24 @@ class PaymentNatureService extends AbstractResponse
 
     public $name;
 
+    /**
+     * @var bool
+     */
     public $SupportsRefunds;
 
+    /**
+     * @var bool
+     */
     public $SupportsRelease;
 
+    /**
+     * @var bool
+     */
     public $SupportsMultipleCaptures;
 
+    /**
+     * @var bool
+     */
     public $SupportsMultipleRefunds;
 
     /**

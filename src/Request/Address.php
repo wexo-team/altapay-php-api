@@ -21,11 +21,10 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Request;
+namespace Altapay\Request;
 
 use Altapay\Response\Embeds\Address as BaseAddress;
 
 class Address extends BaseAddress
 {
-
 }

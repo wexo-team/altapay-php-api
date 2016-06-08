@@ -24,9 +24,9 @@
 namespace Altapay\ApiTest\Api\Api;
 
 use Altapay\Api\Payments\ReservationOfFixedAmount;
+use Altapay\Request\Address;
 use Altapay\Request\Card;
 use Altapay\Request\Customer;
-use Altapay\Response\Embeds\Address;
 use Altapay\Response\Embeds\Terminal;
 use Altapay\Response\ReservationOfFixedAmountResponse;
 use Altapay\Types\FraudServices;
