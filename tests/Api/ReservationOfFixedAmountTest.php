@@ -30,7 +30,6 @@ use Altapay\Request\Customer;
 use Altapay\Response\Embeds\Terminal;
 use Altapay\Response\ReservationOfFixedAmountResponse;
 use Altapay\Types\FraudServices;
-use Altapay\Types\LanguageTypes;
 use Altapay\Types\PaymentSources;
 use Altapay\Types\PaymentTypes;
 use Altapay\Types\ShippingMethods;
@@ -262,6 +261,7 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $shipping->Country = 'DK';
 
         $customer = new Customer($billing, $shipping);
+        $customer->setShipping($shipping);
         $customer->setBirthdate(new \DateTime('2001-11-28'));
         $customer->setEmail('my@mail.com');
         $customer->setUsername('username');

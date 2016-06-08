@@ -55,6 +55,13 @@ class Customer extends AbstractSerializer
     private $bankName;
 
     /**
+     * The phone number of the bank where the credit card was issued.
+     *
+     * @var string
+     */
+    private $bankPhone;
+
+    /**
      * The country specific organisation number for the customer, if it is a corporate customer.
      *
      * @var string
@@ -68,13 +75,6 @@ class Customer extends AbstractSerializer
      * @var string
      */
     private $personalIdentifyNumber;
-
-    /**
-     * The phone number of the bank where the credit card was issued.
-     *
-     * @var string
-     */
-    private $bankPhone;
 
     /**
      * Billing address
@@ -115,12 +115,10 @@ class Customer extends AbstractSerializer
      * Customer constructor.
      *
      * @param Address $billingAddress Billing address
-     * @param Address $shippingAddress Shipping address
      */
-    public function __construct(Address $billingAddress, Address $shippingAddress = null)
+    public function __construct(Address $billingAddress)
     {
         $this->billing = $billingAddress;
-        $this->shipping = $shippingAddress;
     }
 
     /**
@@ -333,4 +331,5 @@ class Customer extends AbstractSerializer
             }
         }
     }
+    
 }

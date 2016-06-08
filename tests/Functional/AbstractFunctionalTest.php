@@ -36,7 +36,7 @@ abstract class AbstractFunctionalTest extends AbstractTest
     {
         if (! file_exists(__DIR__ . '/../../.env.php')) {
             $this->markTestSkipped(
-                'Can not test functional because .env.php does not exists'
+                'Can not test functional because .env.php file does not exists'
             );
         }
     }

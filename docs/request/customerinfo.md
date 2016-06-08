@@ -40,6 +40,8 @@ setBankName(string) | Customer bank name | string
 setBankPhone(string) | Customer bank phone | string
 setBirthdate(DateTime) | Customer birthdate | DateTime
 setCreatedDate(DateTime) | When was the customer created | DateTime
+setOrganisationNumber(string) | The country specific organisation number for the customer, if it is a corporate customer. | string
+setPersonalIdentifyNumber(string) | The country specific personal identity number for the customer, for countries where it is applicable. eg. Norway, Sweden, Finland | string
 setGender(true) | What gender is the customer | Boolean (true = female, false = male)
 
 ```php

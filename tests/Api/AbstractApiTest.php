@@ -52,7 +52,8 @@ abstract class AbstractApiTest extends AbstractTest
         $shipping->Region = '0';
         $shipping->Country = 'DK';
 
-        $customer = new Customer($billing, $shipping);
+        $customer = new Customer($billing);
+        $customer->setShipping($shipping);
         $customer->setCreatedDate(new \DateTime('2016-11-25'));
         return $customer;
     }
