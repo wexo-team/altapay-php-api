@@ -46,14 +46,14 @@ Docs: https://testgateway.altapaysecure.com/merchant.php/help/Merchant_API
 
 | Method  | Description |
 |---|---|
-| x [Payments](others/payments.md) | This is used to find and check the status of a specific payment. This is **NOT** intended for finding multiple payments or creating reports. Please note that the maximum number of transactions returned is 10. |
-| x [Funding list](others/funding_list.md) | Used to get a list of fundings, which details when and how much money is transfered to your companys bank account. |
-| x [Funding download](others/funding_download.md) | Used to get a comma separated value file containing the details of a funding. |
-| x [Custom report](others/custom_report.md) | Used to get a comma separated value file containing the custom report |
-| x [Terminals](others/terminals.md) | This method will allow you to extract a list of terminals that you have access to |
-| x [Invoice text](others/invoicetext.md) | GetInvoiceText is used for gathering information to print on the customer invoice for invoice/Arvato payments |
-| x [Calculate surcharge](others/calculate_surcharge.md) | This method is used to calculate the surcharge beforehand, based on a previously completed payment or a terminal, creditcard token, currency combo. |
-| x [Query giftcard](others/query_giftcard.md) | This method is used to get information about a gift card. |
+| [Payments](others/payments.md) | This is used to find and check the status of a specific payment. This is **NOT** intended for finding multiple payments or creating reports. Please note that the maximum number of transactions returned is 10. |
+| [Funding list](others/funding_list.md) | Used to get a list of fundings, which details when and how much money is transfered to your companys bank account. |
+| [Funding download](others/funding_download.md) | Used to get a comma separated value file containing the details of a funding. |
+| [Custom report](others/custom_report.md) | Used to get a comma separated value file containing the custom report |
+| [Terminals](others/terminals.md) | This method will allow you to extract a list of terminals that you have access to |
+| [Invoice text](others/invoicetext.md) | This is used for gathering information to print on the customer invoice for invoice/Arvato payments |
+| [Calculate surcharge](others/calculate_surcharge.md) | This method is used to calculate the surcharge beforehand, based on a previously completed payment or a terminal, creditcard token, currency combo. |
+| [Query giftcard](others/query_giftcard.md) | This method is used to get information about a gift card. |
 
 ```
 x = Docs not written

@@ -26,8 +26,11 @@ namespace Altapay\ApiTest\Api;
 use Altapay\Api\Ecommerce\PaymentRequest;
 use Altapay\Request\Config;
 use Altapay\Response\PaymentRequestResponse;
+use Altapay\Types\LanguageTypes;
+use Altapay\Types\TypeInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class PaymentRequestTest extends AbstractApiTest
@@ -177,6 +180,15 @@ class PaymentRequestTest extends AbstractApiTest
         $this->assertEquals('https://gateway.altapaysecure.com/eCommerce.php/API/embeddedPaymentWindow?pid=2349494a-6adf-49f7-8096-2125a969e104', $response->DynamicJavascriptUrl);
     }
 
+    public function test_language_types()
+    {
+        $this->allowedTypes(
+            LanguageTypes::class,
+            'language',
+            'setLanguage'
+        );
+    }
+
     protected function getConfig()
     {
         $config = new Config();
@@ -190,6 +202,58 @@ class PaymentRequestTest extends AbstractApiTest
             ->setCallbackVerifyOrder(sprintf('%s/%s', self::CONFIG_URL, 'verify'))
         ;
         return $config;
+    }
+
+    /**
+     * @param string|TypeInterface $class
+     * @param string $key
+     * @param string $setter
+     */
+    private function allowedTypes($class, $key, $setter)
+    {
+        foreach ($class::getAllowed() as $type) {
+            $api = $this->getapi();
+            $api->setAmount(200.50);
+            $api->setCurrency(957);
+            $api->setShopOrderId('order id');
+            $api->setTerminal('my terminal');
+            $api->{$setter}($type);
+            $api->call();
+            $request = $api->getRawRequest();
+            parse_str($request->getUri()->getQuery(), $parts);
+            $this->assertEquals($type, $parts[$key]);
+
+            $this->assertTrue($class::isAllowed($type));
+        }
+
+        $this->disallowedTypes($class, $key, $setter);
+    }
+
+    /**
+     * @param string|TypeInterface $class
+     * @param string $key
+     * @param string $method
+     */
+    private function disallowedTypes($class, $key, $method)
+    {
+        $this->setExpectedException(
+            InvalidOptionsException::class,
+            sprintf(
+                'The option "%s" with value "not allowed type" is invalid. Accepted values are: "%s".',
+                $key,
+                implode('", "', $class::getAllowed())
+            )
+        );
+
+        $type = 'not allowed type';
+        $api = $this->getapi();
+        $api->setAmount(200.50);
+        $api->setCurrency(957);
+        $api->setShopOrderId('order id');
+        $api->setTerminal('my terminal');
+        $api->{$method}($type);
+        $api->call();
+        $this->assertFalse($class::isAllowed($type));
     }
 
 }

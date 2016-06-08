@@ -30,6 +30,7 @@ use Altapay\Request\Customer;
 use Altapay\Response\Embeds\Terminal;
 use Altapay\Response\ReservationOfFixedAmountResponse;
 use Altapay\Types\FraudServices;
+use Altapay\Types\LanguageTypes;
 use Altapay\Types\PaymentSources;
 use Altapay\Types\PaymentTypes;
 use Altapay\Types\ShippingMethods;

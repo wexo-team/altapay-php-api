@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<APIResponse version="20100929">
+    <Header>
+        <Date>2010-09-29T12:34:56+02:00</Date>
+        <Path>API/reservationOfFixedAmount</Path>
+        <ErrorCode>200</ErrorCode>
+        <ErrorMessage>This request has error</ErrorMessage>
+    </Header>
+</APIResponse>

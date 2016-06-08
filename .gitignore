@@ -3,4 +3,5 @@
 /phpunit.xml
 /bin
 /.env.php
+/_.env.php
 composer.lock

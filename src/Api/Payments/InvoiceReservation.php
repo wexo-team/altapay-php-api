@@ -24,22 +24,74 @@
 namespace Altapay\Api\Payments;
 
 use Altapay\AbstractApi;
-use Altapay\Request\InvoiceCustomer;
+use Altapay\Response\InvoiceReservationResponse;
+use Altapay\Serializer\ResponseSerializer;
 use Altapay\Traits;
 use Altapay\Types;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InvoiceReservation extends AbstractApi
 {
 
-    use Traits\OrderlinesTrait;
-    use Traits\AmountTrait;
     use Traits\TerminalTrait;
-    use Traits\CurrencyTrait;
     use Traits\ShopOrderIdTrait;
+    use Traits\AmountTrait;
+    use Traits\CurrencyTrait;
+    use Traits\TransactionInfoTrait;
+    use Traits\CustomerInfoTrait;
+    use Traits\OrderlinesTrait;
+
+    /**
+     * The type of payment.
+     *
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->unresolvedOptions['type'] = $type;
+    }
+
+    /**
+     * For Arvato germany an account number and bank code (BLZ) can be passed in, to pay via a secure elv bank transfer.
+     *
+     * @param string $accountnumber
+     */
+    public function setAccountNumber($accountnumber)
+    {
+        $this->unresolvedOptions['accountNumber'] = $accountnumber;
+    }
+
+    /**
+     * The source of the payment
+     *
+     * @param string $paymentsource
+     */
+    public function setPaymentSource($paymentsource)
+    {
+        $this->unresolvedOptions['payment_source'] = $paymentsource;
+    }
+
+    /**
+     * For Arvato germany an account number and bank code (BLZ) can be passed in, to pay via a secure elv bank transfer
+     *
+     * @param string $bankcode
+     */
+    public function setBankCode($bankcode)
+    {
+        $this->unresolvedOptions['bankCode'] = $bankcode;
+    }
+
+    /**
+     * If you wish to decide pr. Payment wich fraud detection service to use
+     *
+     * @param string $fraudservice
+     */
+    public function setFraudService($fraudservice)
+    {
+        $this->unresolvedOptions['fraud_service'] = $fraudservice;
+    }
 
     /**
      * Configure options
@@ -52,17 +104,20 @@ class InvoiceReservation extends AbstractApi
         $resolver->setRequired([
             'terminal', 'shop_orderid', 'amount',
             'currency', 'type', 'payment_source',
-            'customer_info', 'orderLines'
         ]);
 
         $resolver->setAllowedValues('type', Types\PaymentTypes::getAllowed());
         $resolver->setDefault('type', 'payment');
         $resolver->setAllowedValues('payment_source', Types\PaymentSources::getAllowed());
         $resolver->setDefault('payment_source', 'eCommerce');
-        $resolver->setAllowedTypes('customer_info', InvoiceCustomer::class);
-        $resolver->setNormalizer('customer_info', function (Options $options, InvoiceCustomer $value) {
-            return $value->serialize();
-        });
+
+        $resolver->setDefined([
+            'accountNumber', 'bankCode', 'fraud_service', 'customer_info', 'orderLines',
+            'transaction_info'
+        ]);
+        $resolver->setAllowedTypes('accountNumber', 'string');
+        $resolver->setAllowedTypes('bankCode', 'string');
+        $resolver->setAllowedValues('fraud_service', Types\FraudServices::getAllowed());
     }
 
     /**
@@ -74,7 +129,9 @@ class InvoiceReservation extends AbstractApi
      */
     protected function handleResponse(Request $request, Response $response)
     {
-        // TODO: Implement handleResponse() method.
+        $body = (string) $response->getBody();
+        $xml = simplexml_load_string($body);
+        return ResponseSerializer::serialize(InvoiceReservationResponse::class, $xml->Body, false, $xml->Header);
     }
 
     /**
@@ -85,6 +142,7 @@ class InvoiceReservation extends AbstractApi
      */
     public function getUrl(array $options)
     {
-        // TODO: Implement getUrl() method.
+        $query = $this->buildUrl($options);
+        return sprintf('createInvoiceReservation/?%s', $query);
     }
 }

@@ -55,6 +55,21 @@ class Customer extends AbstractSerializer
     private $bankName;
 
     /**
+     * The country specific organisation number for the customer, if it is a corporate customer.
+     *
+     * @var string
+     */
+    private $organisationNumber;
+
+    /**
+     * The country specific personal identity number for the customer,
+     * for countries where it is applicable. eg. Norway, Sweden, Finland
+     *
+     * @var string
+     */
+    private $personalIdentifyNumber;
+
+    /**
      * The phone number of the bank where the credit card was issued.
      *
      * @var string
@@ -210,8 +225,6 @@ class Customer extends AbstractSerializer
     }
 
     /**
-     * Get CreatedDate
-     *
      * @return \DateTime
      */
     public function getCreatedDate()
@@ -220,11 +233,23 @@ class Customer extends AbstractSerializer
     }
 
     /**
-     * @return string
+     * @param string $organisationNumber
+     * @return Customer
      */
-    public function getGender()
+    public function setOrganisationNumber($organisationNumber)
     {
-        return $this->gender;
+        $this->organisationNumber = $organisationNumber;
+        return $this;
+    }
+
+    /**
+     * @param string $personalIdentifyNumber
+     * @return Customer
+     */
+    public function setPersonalIdentifyNumber($personalIdentifyNumber)
+    {
+        $this->personalIdentifyNumber = $personalIdentifyNumber;
+        return $this;
     }
 
     /**
@@ -270,6 +295,14 @@ class Customer extends AbstractSerializer
 
         if ($this->bankPhone) {
             $output['bank_phone'] = $this->bankPhone;
+        }
+
+        if ($this->organisationNumber) {
+            $output['organisationNumber'] = $this->organisationNumber;
+        }
+
+        if ($this->personalIdentifyNumber) {
+            $output['personalIdentifyNumber'] = $this->personalIdentifyNumber;
         }
 
         if ($this->gender) {

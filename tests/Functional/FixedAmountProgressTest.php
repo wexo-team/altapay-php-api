@@ -29,6 +29,7 @@ use Altapay\Api\Payments\CaptureReservation;
 use Altapay\Api\Payments\RefundCapturedReservation;
 use Altapay\Api\Payments\ReservationOfFixedAmount;
 use Altapay\Response\CaptureReservationResponse;
+use Altapay\Response\Embeds\Header;
 use Altapay\Response\RefundResponse;
 use Altapay\Response\ReservationOfFixedAmountResponse;
 
@@ -47,6 +48,21 @@ class FixedAmountProgressTest extends AbstractFunctionalTest
             ->setCurrency('DKK')
         ;
         $api->call();
+    }
+
+    public function test_create_fixed_amount_fails_exception()
+    {
+        try {
+            $api = new ReservationOfFixedAmount($this->getAuth());
+            $api
+                ->setTerminal($this->getTerminal())
+                ->setShopOrderId(time())
+                ->setAmount($this->getFaker()->randomFloat(2, 1, 50))
+                ->setCurrency('DKK');
+            $api->call();
+        } catch (ResponseHeaderException $e) {
+            $this->assertInstanceOf(Header::class, $e->getHeader());
+        }
     }
 
     public function test_can_reserve_capture_refund()

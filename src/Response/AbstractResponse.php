@@ -59,28 +59,30 @@ abstract class AbstractResponse
      * @param \SimpleXMLElement $xml
      * @return AbstractResponse
      */
-    public function deserialize(\SimpleXMLElement $xml)
+    public function deserialize(\SimpleXMLElement $xml = null)
     {
         $object = clone $this;
 
-        $this->attributeSetter($object, $xml);
+        if ($xml) {
+            $this->attributeSetter($object, $xml);
 
-        try {
-            $this->elementSetter($object, trim((string)$xml), $xml);
-        } catch (\InvalidArgumentException $e) {
-        }
-
-        /** @var \SimpleXMLElement $child */
-        foreach ($xml->children() as $child) {
-            if (isset($this->childs[$child->getName()])) {
-                $builder = $this->childs[$child->getName()];
-                $data = ResponseSerializer::serialize($builder['class'], $child, $builder['array']);
-            } else {
-                $data = trim((string) $child);
-                $this->attributeSetter($object, $child);
+            try {
+                $this->elementSetter($object, trim((string)$xml), $xml);
+            } catch (\InvalidArgumentException $e) {
             }
 
-            $this->elementSetter($object, $data, $child);
+            /** @var \SimpleXMLElement $child */
+            foreach ($xml->children() as $child) {
+                if (isset($this->childs[$child->getName()])) {
+                    $builder = $this->childs[$child->getName()];
+                    $data = ResponseSerializer::serialize($builder['class'], $child, $builder['array']);
+                } else {
+                    $data = trim((string)$child);
+                    $this->attributeSetter($object, $child);
+                }
+
+                $this->elementSetter($object, $data, $child);
+            }
         }
 
         return $object;
@@ -94,17 +96,21 @@ abstract class AbstractResponse
      */
     private function attributeSetter($object, \SimpleXMLElement $element)
     {
-        /** @var \SimpleXMLElement $attribute */
-        foreach ($element->attributes() as $attribute) {
-            if (! $this->set($object, (string) $attribute, $attribute)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'The attribute "%s" on element "%s" does not have a setter or a property in class "%s"',
-                        $attribute->getName(),
-                        $element->getName(),
-                        get_called_class()
-                    )
-                );
+        if ($element) {
+            /** @var \SimpleXMLElement $attribute */
+            foreach ($element->attributes() as $attribute) {
+                if (isset($attribute) && $attribute) {
+                    if (!$this->set($object, (string)$attribute, $attribute)) {
+                        throw new \InvalidArgumentException(
+                            sprintf(
+                                'The attribute "%s" on element "%s" does not have a setter or a property in class "%s"',
+                                $attribute->getName(),
+                                $element->getName(),
+                                get_called_class()
+                            )
+                        );
+                    }
+                }
             }
         }
     }
@@ -139,15 +145,17 @@ abstract class AbstractResponse
      */
     private function set($object, $data, \SimpleXMLElement $element)
     {
-        $setter = 'set' . ucfirst($element->getName());
-        if (method_exists($object, $setter)) {
-            $object->{$setter}($data);
-            return true;
-        }
+        if ($element->getName()) {
+            $setter = 'set' . ucfirst($element->getName());
+            if (method_exists($object, $setter)) {
+                $object->{$setter}($data);
+                return true;
+            }
 
-        if (property_exists($object, $element->getName())) {
-            $object->{$element->getName()} = $data;
-            return true;
+            if (property_exists($object, $element->getName())) {
+                $object->{$element->getName()} = $data;
+                return true;
+            }
         }
 
         return false;
