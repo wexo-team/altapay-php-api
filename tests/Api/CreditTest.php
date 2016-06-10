@@ -51,7 +51,7 @@ class CreditTest extends AbstractApiTest
 
     public function test_options()
     {
-        $this->expectException(CreditCardTokenAndCardUsedException::class);
+        $this->setExpectedException(CreditCardTokenAndCardUsedException::class);
 
         $card = new Card(1234, 12, 12, 122);
         $api = $this->getCredit();

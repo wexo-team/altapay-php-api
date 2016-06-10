@@ -43,7 +43,7 @@ class PaymentsTest extends AbstractApiTest
 
     public function test_payments_exception()
     {
-        $this->expectException(ClientException::class);
+        $this->setExpectedException(ClientException::class);
 
         $client = $this->getClient($mock = new MockHandler([
             new Response(400)

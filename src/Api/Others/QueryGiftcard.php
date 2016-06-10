@@ -84,7 +84,7 @@ class QueryGiftcard extends AbstractApi
      * @param array $options Resolved options
      * @return string
      */
-    public function getUrl(array $options)
+    protected function getUrl(array $options)
     {
         /** @var Giftcard $card */
         $card = $options['giftcard'];

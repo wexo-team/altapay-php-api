@@ -59,15 +59,19 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
 
     public function test_missing_all_options()
     {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage('The required options "amount", "currency", "shop_orderid", "terminal" are missing.');
+        $this->setExpectedException(
+            MissingOptionsException::class,
+            'The required options "amount", "currency", "shop_orderid", "terminal" are missing.'
+        );
         $this->getapi()->call();
     }
 
     public function test_missing_terminal_options()
     {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage('The required option "terminal" is missing.');
+        $this->setExpectedException(
+            MissingOptionsException::class,
+            'The required option "terminal" is missing.'
+        );
 
         $api = $this->getapi();
         $api->setAmount(200.50);

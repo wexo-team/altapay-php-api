@@ -53,6 +53,7 @@ trait TransactionsTrait
     protected function setTransactionResolver(OptionsResolver $resolver)
     {
         $resolver->addAllowedTypes('transaction_id', ['string', 'int', Transaction::class]);
+        /** @noinspection PhpUnusedParameterInspection */
         $resolver->setNormalizer('transaction_id', function (Options $options, $value) {
             if ($value instanceof Transaction) {
                 return $value->TransactionId;

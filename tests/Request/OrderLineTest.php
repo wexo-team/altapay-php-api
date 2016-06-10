@@ -79,8 +79,10 @@ class OrderLineTest extends \PHPUnit_Framework_TestCase
     public function test_can_not_set_goodstypes($type, $exception = false)
     {
         if ($exception) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('goodsType should be one of "shipment|handling|item" you have selected "' . $type . '"');
+            $this->setExpectedException(
+                \InvalidArgumentException::class,
+                'goodsType should be one of "shipment|handling|item" you have selected "' . $type . '"'
+            );
         }
 
         $line = new OrderLine('description', 12, 2, 12.50);
@@ -92,8 +94,10 @@ class OrderLineTest extends \PHPUnit_Framework_TestCase
 
     public function test_can_not_set_both_tax_types()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Only one of "taxPercent" and "taxAmount" should be used');
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'Only one of "taxPercent" and "taxAmount" should be used'
+        );
 
         $line = new OrderLine('description', 12, 2, 12.50);
         $line->taxAmount = 4.75;

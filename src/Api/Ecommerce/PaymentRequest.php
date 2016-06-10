@@ -233,6 +233,7 @@ class PaymentRequest extends AbstractApi
         $resolver->setDefault('payment_source', 'eCommerce');
         $resolver->setAllowedValues('payment_source', Types\PaymentSources::getAllowed());
         $resolver->setAllowedTypes('config', Config::class);
+        /** @noinspection PhpUnusedParameterInspection */
         $resolver->setNormalizer('config', function (Options $options, Config $value) {
             return $value->serialize();
         });
@@ -240,6 +241,7 @@ class PaymentRequest extends AbstractApi
             return strlen($value) <= 20;
         });
         $resolver->setAllowedTypes('account_offer', 'bool');
+        /** @noinspection PhpUnusedParameterInspection */
         $resolver->setNormalizer('account_offer', function (Options $options, $value) {
             return $value ? 'required' : 'disabled';
         });
@@ -265,7 +267,7 @@ class PaymentRequest extends AbstractApi
      * @param array $options Resolved options
      * @return string
      */
-    public function getUrl(array $options)
+    protected function getUrl(array $options)
     {
         $query = $this->buildUrl($options);
         return sprintf('createPaymentRequest/?%s', $query);

@@ -73,6 +73,7 @@ class FundingDownload extends AbstractApi
     {
         $resolver->setRequired(['link']);
         $resolver->addAllowedTypes('link', ['string', Funding::class]);
+        /** @noinspection PhpUnusedParameterInspection */
         $resolver->setNormalizer('link', function (Options $options, $value) {
             if ($value instanceof Funding) {
                 return $value->DownloadLink;
@@ -99,7 +100,7 @@ class FundingDownload extends AbstractApi
      * @param array $options Resolved options
      * @return string
      */
-    public function getUrl(array $options)
+    protected function getUrl(array $options)
     {
         return $options['link'];
     }

@@ -52,7 +52,7 @@ class TestAuthentication extends AbstractApi
      * @param array $options Resolved options
      * @return string
      */
-    public function getUrl(array $options)
+    protected function getUrl(array $options)
     {
         return 'login';
     }

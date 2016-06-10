@@ -64,6 +64,7 @@ trait OrderlinesTrait
     protected function setOrderLinesResolver(OptionsResolver $resolver)
     {
         $resolver->addAllowedTypes('orderLines', 'array');
+        /** @noinspection PhpUnusedParameterInspection */
         $resolver->setNormalizer('orderLines', function (Options $options, $value) {
             $output = [];
             /** @var OrderLine $object */

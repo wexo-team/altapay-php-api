@@ -331,5 +331,4 @@ class Customer extends AbstractSerializer
             }
         }
     }
-    
 }

@@ -80,7 +80,7 @@ class SetupSubscription extends ReservationOfFixedAmount
      * @param array $options Resolved options
      * @return string
      */
-    public function getUrl(array $options)
+    protected function getUrl(array $options)
     {
         $query = $this->buildUrl($options);
         return sprintf('setupSubscription/?%s', $query);

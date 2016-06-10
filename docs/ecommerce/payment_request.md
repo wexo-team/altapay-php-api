@@ -74,7 +74,7 @@ $request->setCurrency('SEK');
 | setPaymentSource(string) | The source of the payment. Default is "eCommerce" | string - [See Payment sources](../types/paymentsources.md)
 | setCustomerInfo(Customer) | Customer info | Customer object [See customer info](../request/customerinfo.md) |
 | setConfig(Config) | used to overwrite the terminal settings | Config object [See config](../request/config.md)
-| orderLines(array|OrderLine) | Order lines | array of OrderLine objects - [See OrderLine](../request/orderline.md)
+| orderLines(array or OrderLine) | Order lines | array of OrderLine objects - [See OrderLine](../request/orderline.md)
 
 ##### Optional parameters for invoice payments
 

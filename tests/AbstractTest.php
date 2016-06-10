@@ -15,11 +15,20 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         return Factory::create('da_DK');
     }
 
-    public function setExpectedException($class, $message = null)
+    public function setExpectedException($class, $message = '', $code = null)
     {
-        $this->expectException($class);
-        if ($message) {
-            $this->expectExceptionMessage($message);
+        if (method_exists($this, 'expectException')) {
+            $this->expectException($class);
+
+            if ($message) {
+                $this->expectExceptionMessage($message);
+            }
+
+            if ($code !== null) {
+                $this->expectExceptionCode($code);
+            }
+        } else {
+            parent::setExpectedException($class, $message, $code);
         }
     }
 

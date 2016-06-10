@@ -52,7 +52,7 @@ class SetupSubscriptionTest extends AbstractApiTest
             ResponseMessageException::class,
             'TestAcquirer[pan=1466 or amount=14660]'
         );
-        
+
         $client = $this->getClient($mock = new MockHandler([
             new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/setupsubscription_fail.xml'))
         ]));
@@ -70,8 +70,10 @@ class SetupSubscriptionTest extends AbstractApiTest
 
     public function test_set_type()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Type can not be set on a subscription');
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'Type can not be set on a subscription'
+        );
 
         $api = $this->getapi();
         $api->setType('Hello World');
