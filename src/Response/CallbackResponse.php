@@ -111,6 +111,21 @@ class CallbackResponse extends AbstractResponse
     public $Result;
 
     /**
+     * @var string
+     */
+    public $MerchantErrorMessage;
+
+    /**
+     * @var string
+     */
+    public $CardHolderErrorMessage;
+
+    /**
+     * @var string
+     */
+    public $CardHolderMessageMustBeShown;
+
+    /**
      * @var Transaction[]
      */
     public $Transactions;
