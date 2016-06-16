@@ -1,5 +1,5 @@
 {
-  "name": "altapay/php-api",
+  "name": "lsv/altapay-php-api",
   "description": "Altapay PHP API",
   "keywords": [
     "payment", "altapay"

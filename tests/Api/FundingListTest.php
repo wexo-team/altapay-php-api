@@ -124,14 +124,15 @@ class FundingListTest extends AbstractApiTest
     public function test_funding_object_shops()
     {
         $api = $this->getMultipleFundingsList();
-        /** @var Shop $response */
-        $response = $api->call()->Fundings[0]->Shops[0];
-        $this->assertEquals('AltaPay Functional Test Shop', $response->Shop);
-
-        $api = $this->getMultipleFundingsList();
-        /** @var Shop $response */
-        $response = $api->call()->Fundings[0]->Shops[1];
-        $this->assertEquals('AltaPay Functional Test Shop Two', $response->Shop);
+        /** @var FundingsResponse $response */
+        $response = $api->call();
+        $this->assertCount(2, $response->Fundings, 'Fundings');
+        $funding = $response->Fundings[0];
+        $this->assertCount(2, $funding->Shops, 'Shops');
+        $shop1 = $funding->Shops[0];
+        $this->assertEquals('AltaPay Functional Test Shop', $shop1->Shop);
+        $shop2 = $funding->Shops[1];
+        $this->assertEquals('AltaPay Functional Test Shop Two', $shop2->Shop);
     }
 
 }

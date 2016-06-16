@@ -26,6 +26,7 @@ namespace Altapay\ApiTest\Api;
 use Altapay\Api\Others\Terminals;
 use Altapay\Response\Embeds\Terminal;
 use Altapay\Response\TerminalsResponse as TerminalsDocument;
+use Altapay\Response\TerminalsResponse;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -82,8 +83,11 @@ class TerminalsTest extends AbstractApiTest
     {
         $api = $this->getTerminals();
         /** @var Terminal $terminal */
-        $terminal = $api->call()->Terminals[0];
+        /** @var TerminalsResponse $response */
+        $response = $api->call();
+        $this->assertCount(2, $response->Terminals);
 
+        $terminal = $response->Terminals[0];
         $this->assertEquals('AltaPay Multi-Nature Terminal', $terminal->Title);
         $this->assertEquals('DK', $terminal->Country);
         $this->assertCount(4, $terminal->Natures);
