@@ -1,4 +1,4 @@
-Altapay - PHP API
+Altapay - PHP API &ndash; [![Build Status](https://travis-ci.org/lsv/altapay-php-api.svg?branch=master)](https://travis-ci.org/lsv/altapay-php-api) [![codecov](https://codecov.io/gh/lsv/altapay-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lsv/altapay-php-api) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/ec01dcf9-d9dd-4227-b116-8c72617b79bc/mini.png)](https://insight.sensiolabs.com/projects/ec01dcf9-d9dd-4227-b116-8c72617b79bc)
 =================
 
 For accessing Altapay payment gateway through the API
