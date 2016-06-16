@@ -103,6 +103,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
                     <SupportsMultipleCaptures>false</SupportsMultipleCaptures>
                     <SupportsMultipleRefunds>false</SupportsMultipleRefunds>
                 </PaymentNatureService>
+                <AddressVerification>s</AddressVerification>
+                <AddressVerificationDescription>Invalid address verification response code</AddressVerificationDescription>
                 <ChargebackEvents/>
                 <PaymentInfos/>
                 <CustomerInfo>

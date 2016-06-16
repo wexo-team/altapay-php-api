@@ -134,6 +134,9 @@ class Transaction extends AbstractResponse
     public $FraudRiskScore;
     public $FraudExplanation;
     public $FraudRecommendation;
+    
+    public $AddressVerification;
+    public $AddressVerificationDescription;
 
     /**
      * @var ChargebackEvent[]
