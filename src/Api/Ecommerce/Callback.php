@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Api\Ecommerce;
+namespace Altapay\Api\Ecommerce;
 
-use Altapay\Api\Response\CallbackResponse;
+use Altapay\Response\CallbackResponse;
 use Altapay\Serializer\ResponseSerializer;
 
 class Callback
@@ -61,5 +61,4 @@ class Callback
         $response->status = $this->postedData['status'];
         return $response;
     }
-
 }

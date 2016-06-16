@@ -21,9 +21,8 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Api\Response;
+namespace Altapay\Response;
 
-use Altapay\Response\AbstractResponse;
 use Altapay\Response\Embeds\Transaction;
 
 class CallbackResponse extends AbstractResponse
@@ -115,5 +114,4 @@ class CallbackResponse extends AbstractResponse
      * @var Transaction[]
      */
     public $Transactions;
-
 }
