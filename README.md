@@ -5,13 +5,13 @@ For accessing Altapay payment gateway through the API
 
 ### Install
 
-`composer require altapay/php-api`
+`composer require lsv/altapay-php-api`
 
 or add it to your `composer.json` file
 
 ```json
 "require": {
-    "altapay/php-api": "^1.0"
+    "lsv/altapay-php-api": "^1.0"
 }
 ```
 
