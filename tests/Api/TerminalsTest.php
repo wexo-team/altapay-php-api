@@ -91,21 +91,6 @@ class TerminalsTest extends AbstractApiTest
         $this->assertEquals('AltaPay Multi-Nature Terminal', $terminal->Title);
         $this->assertEquals('DK', $terminal->Country);
         $this->assertCount(4, $terminal->Natures);
-
-//        $nature1 = $terminal->Natures[0];
-//        $nature2 = $terminal->Natures[1];
-//        $nature3 = $terminal->Natures[2];
-//        $nature4 = $terminal->Natures[3];
-//        $this->assertEquals('CreditCard', $nature1->Nature);
-//        $this->assertEquals('EPayment', $nature2->Nature);
-//        $this->assertEquals('IdealPayment', $nature3->Nature);
-//        $this->assertEquals('Invoice', $nature4->Nature);
-
-        $this->assertCount(2, $terminal->Currencies);
-        $currency1 = $terminal->Currencies[0];
-        $currency2 = $terminal->Currencies[1];
-        $this->assertEquals('DKK', $currency1->Currency);
-        $this->assertEquals('EUR', $currency2->Currency);
     }
 
 }
