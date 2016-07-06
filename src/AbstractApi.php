@@ -43,7 +43,7 @@ abstract class AbstractApi
     /**
      * Test gateway url
      */
-    const TESTBASEURL = 'https://testgateway.altapaysecure.com/merchant';
+    const TESTBASEURL = 'https://testgateway.altapaysecure.com';
 
     /**
      * Api version
@@ -317,7 +317,7 @@ abstract class AbstractApi
     protected function parseUrl()
     {
         return sprintf(
-            '%s/%s/%s',
+            '%s/merchant/%s/%s',
             rtrim($this->baseUrl ?: self::TESTBASEURL, '/'),
             self::VERSION,
             $this->getUrl($this->options)
