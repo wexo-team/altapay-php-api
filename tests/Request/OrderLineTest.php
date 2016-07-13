@@ -23,9 +23,10 @@
 
 namespace Altapay\ApiTest\Request;
 
+use Altapay\ApiTest\AbstractTest;
 use Altapay\Request\OrderLine;
 
-class OrderLineTest extends \PHPUnit_Framework_TestCase
+class OrderLineTest extends AbstractTest
 {
 
     public function test_orderline()
@@ -103,6 +104,12 @@ class OrderLineTest extends \PHPUnit_Framework_TestCase
         $line->taxAmount = 4.75;
         $line->taxPercent = 25;
         $line->serialize();
+    }
+
+    public function test_serializer()
+    {
+        $line = new OrderLineRequestTestSerializer('description', 12, 2, 12.50);
+        $this->assertFalse($line->serialize());
     }
 
 }

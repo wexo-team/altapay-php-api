@@ -21,60 +21,14 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Event;
+namespace Altapay\ApiTest\Request;
 
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
-use Symfony\Component\EventDispatcher\Event;
+use Altapay\Request\OrderLine;
 
-class AfterHandlingResponseEvent extends Event
+class OrderLineRequestTestSerializer extends OrderLine
 {
-
-    const NAME = 'altapayapi.after.handling.response';
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var Response
-     */
-    private $response;
-
-    /**
-     * @var mixed
-     */
-    private $output;
-
-    public function __construct(Request $request, Response $response, $output)
+    public function serialize()
     {
-        $this->request = $request;
-        $this->response = $response;
-        $this->output = $output;
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOutput()
-    {
-        return $this->output;
+        return $this->get($this, 'foobar');
     }
 }

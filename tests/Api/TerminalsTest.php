@@ -93,4 +93,19 @@ class TerminalsTest extends AbstractApiTest
         $this->assertCount(4, $terminal->Natures);
     }
 
+    public function test_attr_fail()
+    {
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'The attribute "iddonotexists" on element "Title" does not have a setter or a property in class "Altapay\Response\Embeds\Terminal"'
+        );
+
+        (new Terminals($this->getAuth()))
+            ->setClient($this->getClient($mock = new MockHandler([
+                new Response(200, ['text-content' => 'application/xml'], file_get_contents(__DIR__ . '/Results/terminals-fails.xml'))
+            ])))
+            ->call()
+        ;
+    }
+
 }

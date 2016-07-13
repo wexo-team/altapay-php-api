@@ -21,34 +21,47 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Event;
+namespace Altapay\ApiTest;
 
-use Symfony\Component\EventDispatcher\Event;
+use Altapay\Exceptions\ClassDoesNotExistsException;
+use Altapay\Factory;
 
-class AfterResolveOptionsEvent extends Event
+class FactoryTest extends AbstractTest
 {
 
-    const NAME = 'altapayapi.after.resolve.options';
-
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
-     * AfterResolveOptionsEvent constructor.
-     * @param array $options The options array after it has been resolved
-     */
-    public function __construct(array $options)
+    public function dataProvider()
     {
-        $this->options = $options;
+        $refClass = new \ReflectionClass(Factory::class);
+        $constants = $refClass->getConstants();
+        $output = [];
+        foreach ($constants as $class) {
+            $output[] = [$class];
+        }
+        return $output;
     }
 
     /**
-     * @return array
+     * @dataProvider dataProvider
+     * @param string $class
      */
-    public function getOptions()
+    public function test_can_create($class)
     {
-        return $this->options;
+        $this->assertInstanceOf($class, Factory::create($class, $this->getAuth()));
     }
+
+    public function test_does_not_exists()
+    {
+        $this->setExpectedException(ClassDoesNotExistsException::class);
+        Factory::create('Foo\Bar', $this->getAuth());
+    }
+
+    public function test_does_not_exists_exception_catch()
+    {
+        try {
+            Factory::create('Foo\Bar', $this->getAuth());
+        } catch (ClassDoesNotExistsException $e) {
+            $this->assertEquals('Foo\Bar', $e->getClass());
+        }
+    }
+
 }

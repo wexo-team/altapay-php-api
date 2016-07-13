@@ -21,31 +21,23 @@
  * THE SOFTWARE.
  */
 
-namespace Altapay\Event;
+namespace Altapay\Exceptions;
 
-use GuzzleHttp\Psr7\Request;
-use Symfony\Component\EventDispatcher\Event;
-
-class BeforeHttpResponseEvent extends Event
+class ClassDoesNotExistsException extends Exception
 {
 
-    const NAME = 'altapayapi.before.http.response';
+    public $class;
 
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Request $request)
+    public function __construct($class)
     {
-        $this->request = $request;
+        $this->class = $class;
     }
 
     /**
-     * @return Request
+     * @return string
      */
-    public function getRequest()
+    public function getClass()
     {
-        return $this->request;
+        return $this->class;
     }
 }

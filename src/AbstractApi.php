@@ -23,7 +23,6 @@
 
 namespace Altapay;
 
-use Altapay\Event;
 use Altapay\Exceptions;
 use Altapay\Response\AbstractResponse;
 use GuzzleHttp\Client;
@@ -238,11 +237,6 @@ abstract class AbstractApi
         $this->setCustomerInfoResolver($resolver);
 
         $this->options = $resolver->resolve($this->unresolvedOptions);
-
-        $this->dispatcher->dispatch(
-            Event\AfterResolveOptionsEvent::NAME,
-            new Event\AfterResolveOptionsEvent($this->options)
-        );
     }
 
     /**
@@ -280,27 +274,14 @@ abstract class AbstractApi
             $headers
         );
 
-        $this->dispatcher->dispatch(
-            Event\BeforeHttpResponseEvent::NAME,
-            new Event\BeforeHttpResponseEvent($request)
-        );
         $this->request = $request;
+
         try {
             $response = $this->getClient()->send($request);
             $this->response = $response;
 
-            $this->dispatcher->dispatch(
-                Event\BeforeHandlingResponseEvent::NAME,
-                new Event\BeforeHandlingResponseEvent($request, $response)
-            );
-
             $output = $this->handleResponse($request, $response);
             $this->validateResponse($output);
-
-            $this->dispatcher->dispatch(
-                Event\AfterHandlingResponseEvent::NAME,
-                new Event\AfterHandlingResponseEvent($request, $response, $output)
-            );
 
             return $output;
         } catch (GuzzleHttpClientException $e) {

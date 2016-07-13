@@ -2,7 +2,6 @@
 namespace Altapay\ApiTest\Api;
 
 use Altapay\Request\Address;
-use Altapay\Authentication;
 use Altapay\Request\Customer;
 use Altapay\Request\OrderLine;
 use Altapay\ApiTest\AbstractTest;
@@ -12,11 +11,6 @@ use GuzzleHttp\HandlerStack;
 
 abstract class AbstractApiTest extends AbstractTest
 {
-
-    protected function getAuth()
-    {
-        return new Authentication('test_username', 'test_password');
-    }
 
     protected function getClient(MockHandler $mock)
     {
