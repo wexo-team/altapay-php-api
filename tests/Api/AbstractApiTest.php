@@ -1,4 +1,5 @@
 <?php
+
 namespace Altapay\ApiTest\Api;
 
 use Altapay\Request\Address;

@@ -23,8 +23,13 @@
 
 namespace Altapay\Request;
 
+use Altapay\Exceptions\Exception;
+
 class Customer extends AbstractSerializer
 {
+
+    const FEMALE = 'F';
+    const MALE = 'M';
 
     /**
      * The customer's email address.
@@ -253,13 +258,25 @@ class Customer extends AbstractSerializer
     /**
      * Sets the gender
      *
-     * @param bool $isFemale
+     * @param string $gender
      * @return Customer
+     * @throws Exception
      */
-    public function setGender($isFemale)
+    public function setGender($gender)
     {
-        $this->gender = $isFemale ? 'F' : 'M';
-        return $this;
+        switch (strtolower($gender)) {
+            case 'male':
+            case 'm':
+                $this->gender = self::MALE;
+                return $this;
+            case 'female':
+            case 'f':
+                $this->gender = self::FEMALE;
+                return $this;
+        }
+
+        throw new Exception('setGender() only allows the value (m, male, f or female)');
+
     }
 
     /**

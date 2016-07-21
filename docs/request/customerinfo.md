@@ -42,12 +42,12 @@ setBirthdate(DateTime) | Customer birthdate | DateTime
 setCreatedDate(DateTime) | When was the customer created | DateTime
 setOrganisationNumber(string) | The country specific organisation number for the customer, if it is a corporate customer. | string
 setPersonalIdentifyNumber(string) | The country specific personal identity number for the customer, for countries where it is applicable. eg. Norway, Sweden, Finland | string
-setGender(true) | What gender is the customer | Boolean (true = female, false = male)
+setGender(string) | What gender is the customer | String (f, female, m, male)
 
 ```php
 $customer->setEmail('email@email.com');
 $customer->setBirthdate(new \DateTime('1982-07-23'));
-$customer->setGender(true);
+$customer->setGender('f');
 ```
 
 * More fields filled the better fraud detection will be

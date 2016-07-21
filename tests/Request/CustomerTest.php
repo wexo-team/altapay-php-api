@@ -1,32 +1,13 @@
 <?php
-/**
- * Copyright (c) 2016 Martin Aarhof
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 
 namespace Altapay\ApiTest\Request;
 
+use Altapay\ApiTest\AbstractTest;
+use Altapay\Exceptions\Exception;
 use Altapay\Request\Address;
 use Altapay\Request\Customer;
 
-class CustomerTest extends \PHPUnit_Framework_TestCase
+class CustomerTest extends AbstractTest
 {
 
     public function test_customer()
@@ -38,7 +19,7 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $customer->setShipping($shippingAddress);
         $customer->setOrganisationNumber(123);
         $customer->setPersonalIdentifyNumber('20304050');
-        $customer->setGender(true);
+        $customer->setGender('f');
         $serialized = $customer->serialize();
 
         $this->assertArrayHasKey('organisationNumber', $serialized);
@@ -49,10 +30,26 @@ class CustomerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('20304050', $serialized['personalIdentifyNumber']);
         $this->assertEquals('F', $serialized['gender']);
 
-        $customer->setGender(false);
+        $customer->setGender('m');
         $serialized = $customer->serialize();
         $this->assertEquals('M', $serialized['gender']);
 
+        $customer->setGender('female');
+        $serialized = $customer->serialize();
+        $this->assertEquals(Customer::FEMALE, $serialized['gender']);
+
+        $customer->setGender('male');
+        $serialized = $customer->serialize();
+        $this->assertEquals(Customer::MALE, $serialized['gender']);
+
+    }
+
+    public function test_gender_exception()
+    {
+        $this->setExpectedException(Exception::class, 'setGender() only allows the value (m, male, f or female)');
+        $billingAddress = new Address();
+        $customer = new Customer($billingAddress);
+        $customer->setGender('foo');
     }
 
 }

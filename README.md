@@ -20,7 +20,7 @@ or add it to your `composer.json` file
 For doing a [`capture`](docs/capture.md) the following can be used
 
 ```php
-$auth = new \Altapay\Api\Authentication('username', 'password' , 'gateway.com');
+$auth = new \Altapay\Authentication('username', 'password' , 'myshop.gateway.com');
 $api = new \Altapay\Api\CaptureReservation($auth);
 $api->setTransactionId('transaction id');
 // Or you can use a transaction object you got from a previous API call
