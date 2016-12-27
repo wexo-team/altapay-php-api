@@ -44,21 +44,70 @@ class Callback
         $xml = simplexml_load_string($this->postedData['xml']);
         /** @var CallbackResponse $response */
         $response = ResponseSerializer::serialize(CallbackResponse::class, $xml->Body, false, $xml->Header);
-        $response->shopOrderId = $this->postedData['shop_orderid'];
-        $response->currency = $this->postedData['currency'];
-        $response->type = $this->postedData['type'];
-        $response->embeddedWindow = (bool) $this->postedData['embedded_window'];
-        $response->amount = (float) $this->postedData['amount'];
-        $response->transactionId = $this->postedData['transaction_id'];
-        $response->paymentId = $this->postedData['payment_id'];
-        $response->shopOrderId = $this->postedData['shop_orderid'];
-        $response->nature = $this->postedData['nature'];
-        $response->requireCapture = $this->postedData['require_capture'];
-        $response->paymentStatus = $this->postedData['payment_status'];
-        $response->maskedCreditCard = $this->postedData['masked_credit_card'];
-        $response->blacklistToken = $this->postedData['blacklist_token'];
-        $response->creditCardToken = $this->postedData['credit_card_token'];
-        $response->status = $this->postedData['status'];
+        if (isset($this->postedData['shop_orderid'])) {
+            $response->shopOrderId = $this->postedData['shop_orderid'];
+        }
+
+        if (isset($this->postedData['currency'])) {
+            $response->currency = $this->postedData['currency'];
+        }
+
+        if (isset($this->postedData['type'])) {
+            $response->type = $this->postedData['type'];
+        }
+
+        if (isset($this->postedData['embedded_window'])) {
+            $response->embeddedWindow = (bool)$this->postedData['embedded_window'];
+        }
+
+        if (isset($this->postedData['amount'])) {
+            $response->amount = (float)$this->postedData['amount'];
+        }
+
+        if (isset($this->postedData['transaction_id'])) {
+            $response->transactionId = $this->postedData['transaction_id'];
+        }
+
+        if (isset($this->postedData['payment_id'])) {
+            $response->paymentId = $this->postedData['payment_id'];
+        }
+
+        if (isset($this->postedData['shop_orderid'])) {
+            $response->shopOrderId = $this->postedData['shop_orderid'];
+        }
+
+        if (isset($this->postedData['nature'])) {
+            $response->nature = $this->postedData['nature'];
+        }
+
+        if (isset($this->postedData['require_capture'])) {
+            $response->requireCapture = $this->postedData['require_capture'];
+        }
+
+        if (isset($this->postedData['payment_status'])) {
+            $response->paymentStatus = $this->postedData['payment_status'];
+        }
+
+        if (isset($this->postedData['masked_credit_card'])) {
+            $response->maskedCreditCard = $this->postedData['masked_credit_card'];
+        }
+
+        if (isset($this->postedData['credit_card_masked_pan'])) {
+            $response->maskedCreditCard = $this->postedData['credit_card_masked_pan'];
+        }
+
+        if (isset($this->postedData['blacklist_token'])) {
+            $response->blacklistToken = $this->postedData['blacklist_token'];
+        }
+
+        if (isset($this->postedData['credit_card_token'])) {
+            $response->creditCardToken = $this->postedData['credit_card_token'];
+        }
+
+        if (isset($this->postedData['status'])) {
+            $response->status = $this->postedData['status'];
+        }
+
         return $response;
     }
 }

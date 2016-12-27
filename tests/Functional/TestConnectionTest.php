@@ -16,4 +16,13 @@ class TestConnectionTest extends AbstractFunctionalTest
         $this->assertTrue($response);
     }
 
+    public function test_connection_fails()
+    {
+        $response = (new TestConnection('http//idonotexists.mecom'))
+            ->call()
+        ;
+
+        $this->assertFalse($response);
+    }
+
 }

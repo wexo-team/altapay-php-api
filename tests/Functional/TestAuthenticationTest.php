@@ -20,4 +20,10 @@ class TestAuthenticationTest extends AbstractFunctionalTest
         $this->assertFalse($response);
     }
 
+    public function test_auth_fails_connection()
+    {
+        $response = (new TestAuthentication(new Authentication('username', 'password', 'http://doesnotexists.mecom')))->call();
+        $this->assertFalse($response);
+    }
+
 }
