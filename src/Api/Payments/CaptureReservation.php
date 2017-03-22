@@ -113,7 +113,16 @@ class CaptureReservation extends AbstractApi
     {
         $body = (string) $response->getBody();
         $xml = simplexml_load_string($body);
-        return ResponseSerializer::serialize(CaptureReservationResponse::class, $xml->Body, false, $xml->Header);
+        if ($xml->Body->Result == 'Error') {
+            throw new \Exception($xml->Body->MerchantErrorMessage);
+        }
+
+        try {
+            $data = ResponseSerializer::serialize(CaptureReservationResponse::class, $xml->Body, false, $xml->Header);
+            return $data;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
