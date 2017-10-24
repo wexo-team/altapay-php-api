@@ -110,13 +110,22 @@ class RefundCapturedReservation extends AbstractApi
      *
      * @param Request $request
      * @param Response $response
-     * @return RefundResponse
+     * @return \Altapay\Response\AbstractResponse|array
+	 * @throws \Exception
      */
     protected function handleResponse(Request $request, Response $response)
     {
         $body = (string) $response->getBody();
         $xml = simplexml_load_string($body);
-        return ResponseSerializer::serialize(RefundResponse::class, $xml->Body, false, $xml->Header);
+        if ($xml->Body->Result == 'Error' || $xml->Body->Result == 'Failed') {
+		    throw new \Exception($xml->Body->MerchantErrorMessage);
+	    }
+	    try {
+		    $data = ResponseSerializer::serialize(RefundResponse::class, $xml->Body, false, $xml->Header);
+		    return $data;
+	    } catch (\Exception $e) {
+		    throw $e;
+	    }
     }
 
     /**
