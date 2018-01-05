@@ -65,7 +65,6 @@ class CreditTest extends AbstractApiTest
         $this->assertEquals(5, $parts['emonth']);
         $this->assertEquals(19, $parts['eyear']);
         $this->assertEquals(122, $parts['cvc']);
-
     }
 
     public function test_creditcardtoken_options()
@@ -141,7 +140,5 @@ class CreditTest extends AbstractApiTest
         $this->assertInstanceOf(CreditResponse::class, $response);
         $this->assertEquals('Success', $response->Result);
         $this->assertCount(1, $response->Transactions);
-
     }
-
 }

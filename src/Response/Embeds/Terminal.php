@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class Terminal extends AbstractResponse
 {
-
     protected $childs = [
         'Natures' => [
             'class' => Nature::class,

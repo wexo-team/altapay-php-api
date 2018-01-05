@@ -43,5 +43,4 @@ class HeaderTest extends AbstractApiTest
             $this->assertEquals('This request has error', $e->getHeader()->ErrorMessage);
         }
     }
-
 }

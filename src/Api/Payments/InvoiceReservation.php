@@ -34,7 +34,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InvoiceReservation extends AbstractApi
 {
-
     use Traits\TerminalTrait;
     use Traits\ShopOrderIdTrait;
     use Traits\AmountTrait;

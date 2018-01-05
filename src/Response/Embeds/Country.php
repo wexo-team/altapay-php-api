@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class Country extends AbstractResponse
 {
-
     public $Country;
 
     public $Source;

@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class Address extends AbstractResponse
 {
-
     public $Firstname;
 
     public $Lastname;

@@ -40,7 +40,6 @@ class QueryGiftcardTest extends AbstractApiTest
         $this->assertEquals('account', $parts['giftcard']['account_identifier']);
         $this->assertEquals('provider', $parts['giftcard']['provider']);
         $this->assertEquals('1234-1234', $parts['giftcard']['token']);
-
     }
 
     public function test_response()
@@ -58,7 +57,5 @@ class QueryGiftcardTest extends AbstractApiTest
 
         $this->assertEquals('EUR', $account->Currency);
         $this->assertEquals('50.00', $account->Balance);
-
     }
-
 }

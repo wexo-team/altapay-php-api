@@ -93,7 +93,6 @@ class RefundCapturedReservationTest extends AbstractApiTest
         $this->assertEquals('myidentifier', $parts['reconciliation_identifier']);
         $this->assertEquals('number', $parts['invoice_number']);
         $this->assertEquals('1', $parts['allow_over_refund']);
-
     }
 
     /**
@@ -134,7 +133,6 @@ class RefundCapturedReservationTest extends AbstractApiTest
         $this->assertEquals('8.75', $line['unitPrice']);
         $this->assertEquals('20', $line['taxPercent']);
         $this->assertEquals('kg', $line['unitCode']);
-
     }
 
     /**
@@ -156,7 +154,6 @@ class RefundCapturedReservationTest extends AbstractApiTest
         parse_str($request->getUri()->getQuery(), $parts);
 
         $this->assertCount(1, $parts['orderLines']);
-
     }
 
     /**
@@ -195,5 +192,4 @@ class RefundCapturedReservationTest extends AbstractApiTest
         ;
         $api->call();
     }
-
 }

@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class Funding extends AbstractResponse
 {
-
     protected $childs = [
         'Shops' => [
             'class' => Shop::class,

@@ -27,7 +27,6 @@ use Altapay\Response\Embeds\GiftCardAccount;
 
 class GiftcardResponse extends AbstractResponse
 {
-
     protected $childs = [
         'Accounts' => [
             'class' => GiftCardAccount::class,

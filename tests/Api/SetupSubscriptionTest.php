@@ -93,5 +93,4 @@ class SetupSubscriptionTest extends AbstractApiTest
         $this->assertEquals('Success', $response->Result);
         $this->assertCount(1, $response->Transactions);
     }
-
 }

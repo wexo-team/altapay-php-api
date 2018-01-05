@@ -75,5 +75,4 @@ class InvoiceReservationTest extends AbstractApiTest
         $this->assertEquals('code', $parts['bankCode']);
         $this->assertEquals('maxmind', $parts['fraud_service']);
     }
-
 }

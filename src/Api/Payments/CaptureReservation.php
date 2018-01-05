@@ -45,7 +45,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CaptureReservation extends AbstractApi
 {
-
     use TransactionsTrait;
     use OrderlinesTrait;
     use AmountTrait;

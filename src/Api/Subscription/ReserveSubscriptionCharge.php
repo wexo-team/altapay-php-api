@@ -37,7 +37,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ReserveSubscriptionCharge extends AbstractApi
 {
-
     use Traits\TransactionsTrait;
     use Traits\AmountTrait;
 

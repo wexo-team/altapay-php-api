@@ -25,7 +25,6 @@ namespace Altapay\Exceptions;
 
 class ResponseMessageException extends Exception
 {
-
     public function __construct($message)
     {
         $this->message = $message;

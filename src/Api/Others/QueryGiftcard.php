@@ -37,7 +37,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class QueryGiftcard extends AbstractApi
 {
-
     use TerminalTrait;
 
     /**

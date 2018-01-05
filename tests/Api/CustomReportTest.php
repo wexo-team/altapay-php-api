@@ -47,5 +47,4 @@ class CustomReportTest extends AbstractApiTest
         $csv = $api->__toArray(false);
         $this->assertCount(1, $csv);
     }
-
 }

@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class CustomerInfo extends AbstractResponse
 {
-
     protected $childs = [
         'CountryOfOrigin' => [
             'class' => Country::class,

@@ -36,7 +36,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class FundingDownload extends AbstractApi
 {
-
     use CsvToArrayTrait;
 
     /**

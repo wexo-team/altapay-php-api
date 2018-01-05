@@ -86,5 +86,4 @@ class TerminalsTest extends AbstractApiTest
             ->call()
         ;
     }
-
 }

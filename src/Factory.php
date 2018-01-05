@@ -32,7 +32,6 @@ use Altapay\Api\Test;
 
 class Factory
 {
-
     const ECOMMERCE_PAYMENT_REQUEST = Ecommerce\PaymentRequest::class;
     const ECOMMERCE_CALLBACK = Ecommerce\Callback::class;
 

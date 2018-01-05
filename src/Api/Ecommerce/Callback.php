@@ -28,7 +28,6 @@ use Altapay\Serializer\ResponseSerializer;
 
 class Callback
 {
-
     private $postedData;
 
     public function __construct($postedData)

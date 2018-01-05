@@ -34,7 +34,6 @@ class FundingDownloadTest extends AbstractApiTest
         $this->assertEquals('/merchant/API/fundingDownload', $api->getRawRequest()->getUri()->getPath());
         parse_str($api->getRawRequest()->getUri()->getQuery(), $parts);
         $this->assertEquals(32, $parts['id']);
-
     }
 
     public function test_funding_download_with_object()
@@ -65,5 +64,4 @@ class FundingDownloadTest extends AbstractApiTest
         $csv = $api->__toArray(false);
         $this->assertCount(1, $csv);
     }
-
 }

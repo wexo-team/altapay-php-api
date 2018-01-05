@@ -27,7 +27,6 @@ use Altapay\Exceptions\Exception;
 
 class Customer extends AbstractSerializer
 {
-
     const FEMALE = 'F';
     const MALE = 'M';
 
@@ -276,7 +275,6 @@ class Customer extends AbstractSerializer
         }
 
         throw new Exception('setGender() only allows the value (m, male, f or female)');
-
     }
 
     /**

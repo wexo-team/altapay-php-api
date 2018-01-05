@@ -7,7 +7,6 @@ use Altapay\Response\CallbackResponse;
 
 class CallbackTest extends \PHPUnit_Framework_TestCase
 {
-
     private $data;
 
     public function setUp()
@@ -29,86 +28,88 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             'status' => 'incomplete',
             'xml' => <<<XML
 <?xml version="1.0"?>
-<APIResponse version="20151228">
+<APIResponse version="20170228">
     <Header>
-        <Date>2016-06-16T05:44:53+02:00</Date>
-        <Path>API/reservationOfFixedAmount</Path>
+        <Date>2018-01-05T14:05:04+01:00</Date>
+        <Path>API/reservationOfFixedAmount3DSecureVerification</Path>
         <ErrorCode>0</ErrorCode>
         <ErrorMessage/>
     </Header>
     <Body>
         <Result>Failed</Result>
-        <MerchantErrorMessage/>
-        <CardHolderErrorMessage>Order verification failed</CardHolderErrorMessage>
+        <MerchantErrorMessage>Invalid account number (no such number)</MerchantErrorMessage>
+        <CardHolderErrorMessage>Declined</CardHolderErrorMessage>
         <CardHolderMessageMustBeShown>false</CardHolderMessageMustBeShown>
         <Transactions>
             <Transaction>
-                <TransactionId>11327661</TransactionId>
-                <PaymentId>cf0dbd02-ec44-4692-bc37-b7a061711751</PaymentId>
+                <TransactionId>1682</TransactionId>
+                <PaymentId>96590f37-cf14-4861-bfb2-dff7f70be811</PaymentId>
                 <AuthType>payment</AuthType>
-                <CardStatus>InvalidLuhn</CardStatus>
+                <CardStatus>Valid</CardStatus>
                 <CreditCardExpiry>
                     <Year>2021</Year>
-                    <Month>06</Month>
+                    <Month>01</Month>
                 </CreditCardExpiry>
-                <CreditCardToken>12ad9f352531f19ef7a2596f5726206e80541dbf</CreditCardToken>
-                <CreditCardMaskedPan>457198********2020</CreditCardMaskedPan>
-                <ThreeDSecureResult>Not_Applicable</ThreeDSecureResult>
-                <LiableForChargeback>Merchant</LiableForChargeback>
-                <CVVCheckResult>Not_Applicable</CVVCheckResult>
-                <BlacklistToken>e9219d358bf95f6f3d30bc04c23d678c316b88bd</BlacklistToken>
-                <ShopOrderId>000000028</ShopOrderId>
-                <Shop>Scandesigns</Shop>
-                <Terminal>Scandesigns Test Terminal</Terminal>
-                <TransactionStatus>order_verify_declined</TransactionStatus>
+                <CreditCardToken>f5d81f15a3e22150a0af972dc18e1e77f8a1cb02</CreditCardToken>
+                <CreditCardMaskedPan>418000******0566</CreditCardMaskedPan>
+                <ThreeDSecureResult>Attempted</ThreeDSecureResult>
+                <LiableForChargeback>Issuer</LiableForChargeback>
+                <CVVCheckResult>MisMatched</CVVCheckResult>
+                <BlacklistToken>fcbefb253fb26bf95284ae5f19b3e1345911c891</BlacklistToken>
+                <ShopOrderId>000000316</ShopOrderId>
+                <Shop>Dangleterre</Shop>
+                <Terminal>Dangleterre CC DKK</Terminal>
+                <TransactionStatus>3dsecure_failed</TransactionStatus>
                 <ReasonCode>NONE</ReasonCode>
-                <MerchantCurrency>840</MerchantCurrency>
-                <MerchantCurrencyAlpha>USD</MerchantCurrencyAlpha>
-                <CardHolderCurrency>840</CardHolderCurrency>
-                <CardHolderCurrencyAlpha>USD</CardHolderCurrencyAlpha>
+                <MerchantCurrency>208</MerchantCurrency>
+                <MerchantCurrencyAlpha>DKK</MerchantCurrencyAlpha>
+                <CardHolderCurrency>208</CardHolderCurrency>
+                <CardHolderCurrencyAlpha>DKK</CardHolderCurrencyAlpha>
                 <ReservedAmount>0.00</ReservedAmount>
                 <CapturedAmount>0.00</CapturedAmount>
                 <RefundedAmount>0.00</RefundedAmount>
                 <CreditedAmount>0.00</CreditedAmount>
                 <RecurringDefaultAmount>0.00</RecurringDefaultAmount>
                 <SurchargeAmount>0.00</SurchargeAmount>
-                <CreatedDate>2016-06-16 05:44:51</CreatedDate>
-                <UpdatedDate>2016-06-16 05:44:52</UpdatedDate>
+                <CreatedDate>2018-01-05 14:04:56</CreatedDate>
+                <UpdatedDate>2018-01-05 14:05:03</UpdatedDate>
                 <PaymentNature>CreditCard</PaymentNature>
                 <PaymentSchemeName>Visa</PaymentSchemeName>
-                <PaymentNatureService name="">
-                    <SupportsRefunds>false</SupportsRefunds>
-                    <SupportsRelease>false</SupportsRelease>
-                    <SupportsMultipleCaptures>false</SupportsMultipleCaptures>
-                    <SupportsMultipleRefunds>false</SupportsMultipleRefunds>
+                <PaymentNatureService name="ValitorAcquirer">
+                    <SupportsRefunds>true</SupportsRefunds>
+                    <SupportsRelease>true</SupportsRelease>
+                    <SupportsMultipleCaptures>true</SupportsMultipleCaptures>
+                    <SupportsMultipleRefunds>true</SupportsMultipleRefunds>
                 </PaymentNatureService>
-                <AddressVerification>s</AddressVerification>
-                <AddressVerificationDescription>Invalid address verification response code</AddressVerificationDescription>
+                <AddressVerification>G</AddressVerification>
+                <AddressVerificationDescription>Address information is unavailable; international transaction; non-AVS participant</AddressVerificationDescription>
                 <ChargebackEvents/>
                 <PaymentInfos/>
                 <CustomerInfo>
-                    <UserAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36</UserAgent>
+                    <UserAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36</UserAgent>
                     <IpAddress>83.221.155.149</IpAddress>
-                    <Email/>
+                    <Email>
+                        <![CDATA[maa@scandesigns.dk]]>
+                    </Email>
                     <Username/>
-                    <CustomerPhone/>
+                    <CustomerPhone>10203040</CustomerPhone>
                     <OrganisationNumber/>
                     <CountryOfOrigin>
-                        <Country>DK</Country>
-                        <Source>BillingAddress</Source>
+                        <Country>US</Country>
+                        <Source>CardNumber</Source>
                     </CountryOfOrigin>
                     <BillingAddress>
                         <Firstname>
-                            <![CDATA[Foo]]>
+                            <![CDATA[test]]>
                         </Firstname>
                         <Lastname>
-                            <![CDATA[Bar]]>
+                            <![CDATA[test]]>
                         </Lastname>
                         <Address>
-                            <![CDATA[somewhere]]>
+                            <![CDATA[test]]>
                         </Address>
                         <City>
-                            <![CDATA[city]]>
+                            <![CDATA[test]]>
                         </City>
                         <Region>
                             <![CDATA[0]]>
@@ -122,16 +123,16 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
                     </BillingAddress>
                     <ShippingAddress>
                         <Firstname>
-                            <![CDATA[Foo]]>
+                            <![CDATA[test]]>
                         </Firstname>
                         <Lastname>
-                            <![CDATA[Bar]]>
+                            <![CDATA[test]]>
                         </Lastname>
                         <Address>
-                            <![CDATA[somewhere]]>
+                            <![CDATA[test]]>
                         </Address>
                         <City>
-                            <![CDATA[city]]>
+                            <![CDATA[test]]>
                         </City>
                         <Region>
                             <![CDATA[0]]>
@@ -160,10 +161,10 @@ XML
         $response = $call->call();
         $this->assertInstanceOf(CallbackResponse::class, $response);
         $this->assertEquals('d28df6b4-122d-49e2-add0-19c8271260b0', $response->paymentId);
+        $this->assertEquals('000000022', $response->shopOrderId);
         $this->assertEquals('incomplete', $response->status);
         $this->assertCount(1, $response->Transactions);
-        $this->assertEquals('11327661', $response->Transactions[0]->TransactionId);
+        $this->assertEquals('1682', $response->Transactions[0]->TransactionId);
         $this->assertEquals('Failed', $response->Result);
     }
-
 }

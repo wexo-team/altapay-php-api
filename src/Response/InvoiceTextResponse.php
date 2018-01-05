@@ -28,7 +28,6 @@ use Altapay\Response\Embeds\TextInfo;
 
 class InvoiceTextResponse extends AbstractResponse
 {
-
     protected $childs = [
         'TextInfos' => [
             'class' => TextInfo::class,

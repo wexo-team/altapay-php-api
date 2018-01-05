@@ -40,7 +40,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Credit extends AbstractApi
 {
-
     use Traits\AmountTrait;
     use Traits\TerminalTrait;
     use Traits\CurrencyTrait;

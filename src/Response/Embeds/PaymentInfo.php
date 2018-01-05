@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class PaymentInfo extends AbstractResponse
 {
-
     public $name;
 
     public $PaymentInfo;

@@ -42,7 +42,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Payments extends AbstractApi
 {
-
     use Traits\TransactionsTrait;
     use Traits\TerminalTrait;
     use Traits\ShopOrderIdTrait;

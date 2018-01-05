@@ -43,7 +43,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class RefundCapturedReservation extends AbstractApi
 {
-
     use Traits\TransactionsTrait;
     use Traits\OrderlinesTrait;
     use Traits\AmountTrait;
@@ -111,21 +110,21 @@ class RefundCapturedReservation extends AbstractApi
      * @param Request $request
      * @param Response $response
      * @return \Altapay\Response\AbstractResponse|array
-	 * @throws \Exception
+     * @throws \Exception
      */
     protected function handleResponse(Request $request, Response $response)
     {
         $body = (string) $response->getBody();
         $xml = simplexml_load_string($body);
         if ($xml->Body->Result == 'Error' || $xml->Body->Result == 'Failed') {
-		    throw new \Exception($xml->Body->MerchantErrorMessage);
-	    }
-	    try {
-		    $data = ResponseSerializer::serialize(RefundResponse::class, $xml->Body, false, $xml->Header);
-		    return $data;
-	    } catch (\Exception $e) {
-		    throw $e;
-	    }
+            throw new \Exception($xml->Body->MerchantErrorMessage);
+        }
+        try {
+            $data = ResponseSerializer::serialize(RefundResponse::class, $xml->Body, false, $xml->Header);
+            return $data;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**

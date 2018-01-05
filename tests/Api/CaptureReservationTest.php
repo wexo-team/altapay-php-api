@@ -87,7 +87,6 @@ class CaptureReservationTest extends AbstractApiTest
         $this->assertEquals('myidentifier', $parts['reconciliation_identifier']);
         $this->assertEquals('number', $parts['invoice_number']);
         $this->assertEquals('5.00', $parts['sales_tax']);
-
     }
 
     public function test_capture_reservation_transaction_orderlines()
@@ -114,7 +113,6 @@ class CaptureReservationTest extends AbstractApiTest
         $this->assertEquals('8.75', $line['unitPrice']);
         $this->assertEquals('20', $line['taxPercent']);
         $this->assertEquals('kg', $line['unitCode']);
-
     }
 
     public function test_capture_reservation_transaction_orderlines_object()
@@ -133,7 +131,6 @@ class CaptureReservationTest extends AbstractApiTest
         parse_str($request->getUri()->getQuery(), $parts);
 
         $this->assertCount(1, $parts['orderLines']);
-
     }
 
     public function test_capture_reservation_transaction_orderlines_randomarray()
@@ -169,5 +166,4 @@ class CaptureReservationTest extends AbstractApiTest
         ;
         $api->call();
     }
-
 }

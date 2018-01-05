@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class ReconciliationIdentifier extends AbstractResponse
 {
-
     public $Id;
 
     /**

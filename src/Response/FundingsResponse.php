@@ -27,7 +27,6 @@ use Altapay\Response\Embeds\Funding;
 
 class FundingsResponse extends AbstractResponse
 {
-
     protected $childs = [
         'Fundings' => [
             'class' => Funding::class,

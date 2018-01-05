@@ -25,7 +25,6 @@ namespace Altapay\Types;
 
 class CurrencyTypes
 {
-
     protected static $currencies = [
         'AED' => '784',
         'AFN' => '971',

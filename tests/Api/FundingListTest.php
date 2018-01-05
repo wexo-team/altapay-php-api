@@ -94,7 +94,5 @@ class FundingListTest extends AbstractApiTest
         $this->assertInstanceOf(\DateTime::class, $response->CreatedDate);
         $this->assertEquals('27-09-2010', $response->CreatedDate->format('d-m-Y'));
         $this->assertEquals('http://localhost/merchant.php/API/fundingDownload?id=1', $response->DownloadLink);
-
     }
-
 }

@@ -36,7 +36,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ChargeSubscription extends AbstractApi
 {
-
     use Traits\TransactionsTrait;
     use Traits\AmountTrait;
 

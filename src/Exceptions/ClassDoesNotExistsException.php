@@ -25,7 +25,6 @@ namespace Altapay\Exceptions;
 
 class ClassDoesNotExistsException extends Exception
 {
-
     public $class;
 
     public function __construct($class)

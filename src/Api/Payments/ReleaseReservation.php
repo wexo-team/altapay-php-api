@@ -41,7 +41,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ReleaseReservation extends AbstractApi
 {
-
     use TransactionsTrait;
 
     /**

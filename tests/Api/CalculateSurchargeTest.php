@@ -120,5 +120,4 @@ class CalculateSurchargeTest extends AbstractApiTest
         $this->assertEquals('12.34', $response->SurchageAmount);
         $this->assertNull($response->ThreeDSecureResult);
     }
-
 }

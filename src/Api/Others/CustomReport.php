@@ -38,7 +38,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CustomReport extends AbstractApi
 {
-
     use CsvToArrayTrait;
 
     /**

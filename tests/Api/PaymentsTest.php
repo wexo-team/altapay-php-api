@@ -17,7 +17,6 @@ use GuzzleHttp\Psr7\Response;
 
 class PaymentsTest extends AbstractApiTest
 {
-
     protected function getMultiplePaymentTransaction()
     {
         $client = $this->getClient($mock = new MockHandler([
@@ -164,7 +163,6 @@ class PaymentsTest extends AbstractApiTest
 
         // ReconciliationIdentifiers
         $this->assertCount(1, $data->ReconciliationIdentifiers);
-
     }
 
     /**
@@ -180,7 +178,6 @@ class PaymentsTest extends AbstractApiTest
         $this->assertTrue($data->SupportsRelease);
         $this->assertTrue($data->SupportsMultipleCaptures);
         $this->assertFalse($data->SupportsMultipleRefunds);
-
     }
 
     public function paymentinfosDataprovider()
@@ -275,5 +272,4 @@ class PaymentsTest extends AbstractApiTest
         $this->assertEquals('28-09-2010', $data->Date->format('d-m-Y'));
         $this->assertEquals('978', $data->currency);
     }
-
 }

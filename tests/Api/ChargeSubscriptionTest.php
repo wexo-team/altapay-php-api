@@ -96,5 +96,4 @@ class ChargeSubscriptionTest extends AbstractApiTest
         ;
         $api->call();
     }
-
 }

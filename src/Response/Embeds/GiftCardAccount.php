@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class GiftCardAccount extends AbstractResponse
 {
-
     public $Currency;
 
     public $Balance;

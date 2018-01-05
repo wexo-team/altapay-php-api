@@ -27,7 +27,6 @@ use Altapay\Response\Embeds\Terminal;
 
 class TerminalsResponse extends AbstractResponse
 {
-
     protected $childs = [
         'Terminals' => [
             'class' => Terminal::class,

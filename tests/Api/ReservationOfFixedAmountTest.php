@@ -214,7 +214,6 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $this->assertEquals('DK', $parts['customer_info']['shipping_country']);
 
         $this->assertEquals('2016-11-25', $parts['customer_created_date']);
-
     }
 
     public function test_customer_fullquery()
@@ -263,7 +262,6 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $this->assertEquals('50607080', $parts['customer_info']['customer_phone']);
         $this->assertEquals('bank name', $parts['customer_info']['bank_name']);
         $this->assertEquals('20304050', $parts['customer_info']['bank_phone']);
-
     }
 
     public function test_type()
@@ -408,5 +406,4 @@ class ReservationOfFixedAmountTest extends AbstractApiTest
         $api->call();
         $this->assertFalse($class::isAllowed($type));
     }
-
 }

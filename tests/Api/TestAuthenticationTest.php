@@ -8,7 +8,6 @@ use GuzzleHttp\Psr7\Response;
 
 class TestAuthenticationTest extends AbstractApiTest
 {
-
     public function test_auth_ok()
     {
         $client = $this->getClient($mock = new MockHandler([
@@ -36,5 +35,4 @@ class TestAuthenticationTest extends AbstractApiTest
         $this->assertFalse($api->call());
         $this->assertEquals($this->getExceptedUri('login'), $api->getRawRequest()->getUri()->getPath());
     }
-
 }

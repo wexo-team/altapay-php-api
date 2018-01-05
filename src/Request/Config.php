@@ -25,7 +25,6 @@ namespace Altapay\Request;
 
 class Config extends AbstractSerializer
 {
-
     private $callbackForm;
 
     private $callbackOk;

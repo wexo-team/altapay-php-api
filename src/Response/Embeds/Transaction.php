@@ -27,7 +27,6 @@ use Altapay\Response\AbstractResponse;
 
 class Transaction extends AbstractResponse
 {
-
     protected $childs = [
         'PaymentNatureService' => [
             'class' => PaymentNatureService::class,

@@ -36,7 +36,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PaymentRequest extends AbstractApi
 {
-
     use Traits\TerminalTrait;
     use Traits\AmountTrait;
     use Traits\CurrencyTrait;

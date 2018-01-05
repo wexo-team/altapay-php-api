@@ -27,6 +27,5 @@ use Altapay\Response\AbstractResponse;
 
 class Nature extends AbstractResponse
 {
-
     public $Nature;
 }

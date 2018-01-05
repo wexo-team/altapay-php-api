@@ -94,5 +94,4 @@ class ReserveSubscriptionChargeTest extends AbstractApiTest
         ;
         $api->call();
     }
-
 }

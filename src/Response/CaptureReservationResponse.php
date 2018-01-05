@@ -27,7 +27,6 @@ use Altapay\Response\Embeds\Transaction;
 
 class CaptureReservationResponse extends AbstractResponse
 {
-
     protected $childs = [
         'Transactions' => [
             'class' => Transaction::class,

@@ -76,7 +76,5 @@ class InvoiceTextTest extends AbstractApiTest
         $this->assertEquals('Anywhere City', $response->Address->City);
         $this->assertEquals('1111', $response->Address->PostalCode);
         $this->assertEquals('DK', $response->Address->Country);
-
     }
-
 }
