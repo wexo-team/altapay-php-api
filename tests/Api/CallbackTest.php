@@ -74,6 +74,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
                 <CreatedDate>2018-01-05 14:04:56</CreatedDate>
                 <UpdatedDate>2018-01-05 14:05:03</UpdatedDate>
                 <PaymentNature>CreditCard</PaymentNature>
+                <PaymentSource>eCommerce</PaymentSource>
                 <PaymentSchemeName>Visa</PaymentSchemeName>
                 <PaymentNatureService name="ValitorAcquirer">
                     <SupportsRefunds>true</SupportsRefunds>

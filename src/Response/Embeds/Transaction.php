@@ -123,6 +123,11 @@ class Transaction extends AbstractResponse
     public $PaymentSchemeName;
 
     /**
+     * @var string
+     */
+    public $PaymentSource;
+
+    /**
      * @var PaymentNatureService
      */
     public $PaymentNatureService;

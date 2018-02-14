@@ -43,6 +43,7 @@
                 <UpdatedDate>2016-05-31 14:59:01</UpdatedDate>
                 <PaymentNature>CreditCard</PaymentNature>
                 <PaymentSchemeName>Visa</PaymentSchemeName>
+                <PaymentSource>eCommerce</PaymentSource>
                 <PaymentNatureService name="SoapTestAcquirer">
                     <SupportsRefunds>true</SupportsRefunds>
                     <SupportsRelease>true</SupportsRelease>
