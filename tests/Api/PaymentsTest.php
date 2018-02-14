@@ -149,6 +149,7 @@ class PaymentsTest extends AbstractApiTest
         $this->assertEquals('28-09-2010', $data->CreatedDate->format('d-m-Y'));
         $this->assertEquals('28-09-2010', $data->UpdatedDate->format('d-m-Y'));
         $this->assertEquals('CreditCard', $data->PaymentNature);
+        $this->assertEquals('eCommerce', $data->PaymentSource);
         $this->assertEquals(13.37, $data->FraudRiskScore);
         $this->assertEquals('Fraud detection explanation', $data->FraudExplanation);
 
