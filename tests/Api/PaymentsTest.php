@@ -128,7 +128,7 @@ class PaymentsTest extends AbstractApiTest
         $this->assertEquals('Valid', $data->CardStatus);
         $this->assertEquals('93f534a2f5d66d6ab3f16c8a7bb7e852656d4bb2', $data->CreditCardToken);
         $this->assertEquals('411111******1111', $data->CreditCardMaskedPan);
-        $this->assertFalse($data->IsTokenized);
+        $this->assertEquals('false', $data->IsTokenized);
         $this->assertEquals('Not_Applicable', $data->ThreeDSecureResult);
         $this->assertEquals('Merchant', $data->LiableForChargeback);
         $this->assertEquals('4f244dec4907eba0f6432e53b17a60ebcf51365e', $data->BlacklistToken);
