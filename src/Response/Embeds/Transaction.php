@@ -65,6 +65,10 @@ class Transaction extends AbstractResponse
 
     public $CreditCardToken;
     public $CreditCardMaskedPan;
+	/**
+	 * @var boolean
+	 */
+	public $IsTokenized;
     public $ThreeDSecureResult;
     public $LiableForChargeback;
     public $CVVCheckResult;

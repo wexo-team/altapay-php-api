@@ -52,6 +52,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
                 </CreditCardExpiry>
                 <CreditCardToken>f5d81f15a3e22150a0af972dc18e1e77f8a1cb02</CreditCardToken>
                 <CreditCardMaskedPan>418000******0566</CreditCardMaskedPan>
+                <IsTokenized>false</IsTokenized>
                 <ThreeDSecureResult>Attempted</ThreeDSecureResult>
                 <LiableForChargeback>Issuer</LiableForChargeback>
                 <CVVCheckResult>MisMatched</CVVCheckResult>

@@ -11,6 +11,7 @@
 | `$object->CreditCardExpiry` | | `\Altapay\Response\Embeds\CreditCard`
 | `$object->CreditCardToken` | | string
 | `$object->CreditCardMaskedPan` | | string
+| `$object->IsTokenized` | | boolean
 | `$object->ThreeDSecureResult` | | string
 | `$object->LiableForChargeback` | | string
 | `$object->CVVCheckResult` | | string
