@@ -18,6 +18,7 @@
                 <CardStatus>Valid</CardStatus>
                 <CreditCardToken>93f534a2f5d66d6ab3f16c8a7bb7e852656d4bb2</CreditCardToken>
                 <CreditCardMaskedPan>411111******1111</CreditCardMaskedPan>
+                <IsTokenized>false</IsTokenized>
                 <ThreeDSecureResult>Not_Applicable</ThreeDSecureResult>
                 <LiableForChargeback>Merchant</LiableForChargeback>
                 <BlacklistToken>4f244dec4907eba0f6432e53b17a60ebcf51365e</BlacklistToken>
