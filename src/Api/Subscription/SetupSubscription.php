@@ -38,17 +38,6 @@ class SetupSubscription extends ReservationOfFixedAmount
 {
 
     /**
-     * The type of payment
-     *
-     * @param string $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        throw new \InvalidArgumentException('Type can not be set on a subscription');
-    }
-
-    /**
      * Configure options
      *
      * @param OptionsResolver $resolver
