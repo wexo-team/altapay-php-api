@@ -47,6 +47,11 @@ class SetupSubscription extends ReservationOfFixedAmount
     {
         parent::configureOptions($resolver);
         $resolver->remove('type');
+
+        $resolver->setDefault('type', 'subscription');
+        $resolver->setAllowedValues('type', [
+            'subscription', 'subscriptionAndCharge', 'subscriptionAndReserve', 'verifyCard'
+        ]);
     }
 
     /**
