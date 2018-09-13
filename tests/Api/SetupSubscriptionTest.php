@@ -47,17 +47,6 @@ class SetupSubscriptionTest extends AbstractApiTest
         $api->call();
     }
 
-    public function test_set_type()
-    {
-        $this->setExpectedException(
-            \InvalidArgumentException::class,
-            'Type can not be set on a subscription'
-        );
-
-        $api = $this->getapi();
-        $api->setType('Hello World');
-    }
-
     public function test_url()
     {
         $api = $this->getapi();
